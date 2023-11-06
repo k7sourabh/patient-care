@@ -41,6 +41,9 @@
                   @if(auth()->user()->role()->first()->name=="Admin")
                     <a href="{{route('admin-medicine-create')}}">
                   @endif
+                  @if(auth()->user()->role()->first()->name=="Manager")
+                    <a href="{{route('manager-medicine-create')}}">
+                  @endif
                     <i class="material-icons">add</i>
                     <span>Add New</span>
                     </a>

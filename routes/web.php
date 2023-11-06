@@ -211,11 +211,17 @@ Route::group(['middleware' => ['auth']], function () {
          Route::get('/manager-patient-carer-map-edit/{id?}', [PatientcarermapController::class, 'create'])->name('manager-patient-carer-map-edit');
          Route::post('/manager-patient-carer-map-update/{id?}', [PatientcarermapController::class, 'update'])->name('manager-patient-carer-map-update');
          Route::get('/manager-patient-carer-map-delete/{id}', [PatientcarermapController::class, 'destroy'])->name('manager-patient-carer-map-delete');
-
+        
+        Route::get('/manager-medicine-list', [MedicineController::class, 'index'])->name('manager-medicine-list');
+        Route::get('/manager-medicine-create', [MedicineController::class, 'create'])->name('manager-medicine-create');
+        Route::post('/manager-medicine-create', [MedicineController::class, 'store'])->name('manager-medicine-create');
+        Route::get('/manager-medicine-edit/{id?}', [MedicineController::class, 'create'])->name('manager-medicine-edit');
+        Route::post('/manager-medicine-update/{id?}', [MedicineController::class, 'update'])->name('manager-medicine-update');
+        Route::get('/manager-medicine-delete/{id?}',[MedicineController::class, 'destroy'])->name('manager-medicine-delete');
         
 
-        
-    });
+     });
+
     Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { 
         Route::get('/', [DashboardController::class, 'dashboardSuperadminModern'])->name('superadmin.dashboard');
         Route::get('/login', [LoginController::class, 'showLoginForm']);

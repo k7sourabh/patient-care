@@ -9,10 +9,13 @@
     </tr>
   </thead>
   <tbody>
+  @php
+    $serialNumber = 1;
+    @endphp
     @if(isset($medicineResult) && !empty($medicineResult->items()))
     @foreach($medicineResult as $user_key => $user_value)
     <tr>
-    <td>{{$user_key+1}}</td>
+    <td>{{$serialNumber}}</td>
     <td>{{$user_value->medicine_name}}</td>
     @if(isset($user_value->comp->company_name) && $user_value->comp->company_name!='')
     <td>{{$user_value->comp->company_name}}</td>
@@ -29,15 +32,25 @@
       @if($editUrl=='admin-medicine-edit')
         <a href="{{route($editUrl,$user_value->id)}}"><i class="material-icons">edit</i></a>
       @endif
+      @if($editUrl=='manager-medicine-edit')
+        <a href="{{route($editUrl,$user_value->id)}}"><i class="material-icons">edit</i></a>
+      @endif
       @if($deleteUrl=='medicine-delete')
       <a href="{{route($deleteUrl,$user_value->id)}}" onclick="return confirm('Are you sure you want to delete this item')"><i class="material-icons">delete</i></a>
       @endif
       @if($deleteUrl=='admin-medicine-delete')
       <a href="{{route($deleteUrl,$user_value->id)}}" onclick="return confirm('Are you sure you want to delete this item')"><i class="material-icons">delete</i></a>
       @endif
-    </td>      
-    </tr>
-    @endforeach
+      @if($deleteUrl=='manager-medicine-delete')
+      <a href="{{route($deleteUrl,$user_value->id)}}" onclick="return confirm('Are you sure you want to delete this item')"><i class="material-icons">delete</i></a>
+      @endif
+    </td> 
+  </tr>
+    @php
+    $serialNumber++;
+    @endphp
+  @endforeach
+      
     @else
     
     <tr>

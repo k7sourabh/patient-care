@@ -30,10 +30,18 @@ class MedicineController extends Controller
         {
             $listUrl = 'admin-medicine-list';
         }
+        if($userType=="Manager")
+        {
+            $listUrl = 'manager-medicine-list';
+        }
         $deleteUrl = 'medicine-delete';
         if($userType=="Admin")
         {
             $deleteUrl = 'admin-medicine-delete';
+        }
+        if($userType=="Manager")
+        {
+            $deleteUrl = 'manager-medicine-delete';
         }
         $perpage = config('app.perpage');
         $breadcrumbs = [
@@ -50,7 +58,13 @@ class MedicineController extends Controller
        
         if(auth()->user()->role()->first()->name=="Admin")
         {
-          $medicineResult = Medicine::select(['id','medicine_name','quantity','company'])->orderBy('id','DESC');
+          $medicineResult = Medicine::with('comp')->whereHas('comp', function ($company_q) {
+            $company_q->where('id', '=',auth()->user()->company()->first()->id);})->select(['id','medicine_name','quantity','company'])->orderBy('id','DESC');
+        }
+        if(auth()->user()->role()->first()->name=="Manager")
+        {
+          $medicineResult = Medicine::with('comp')->whereHas('comp', function ($company_q) {
+            $company_q->where('id', '=',auth()->user()->company()->first()->id);})->select(['id','medicine_name','quantity','company'])->orderBy('id','DESC');
         }
        
        
@@ -58,6 +72,10 @@ class MedicineController extends Controller
         if($userType=="Admin")
         {
             $editUrl = 'admin-medicine-edit';
+        }
+        if($userType=="Manager")
+        {
+            $editUrl = 'manager-medicine-edit';
         }
         if($request->ajax()){
             $medicineResult = $medicineResult->when($request->seach_term, function($q)use($request){
@@ -110,13 +128,17 @@ class MedicineController extends Controller
             {
                 $formUrl = 'admin-medicine-update';
             }
+            if($userType=="Manager")
+            {
+                $formUrl = 'manager-medicine-update';
+            }
         }
         // dd($medicineResult);
         return view('pages.medicine.medicine-create', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'countries'=>$countries,'pageTitle'=>$pageTitle,'companies'=>$companies,'medicineResult'=>$medicineResult,'states'=>$states,'cities'=>$cities,'userType'=>$userType,'formUrl'=>$formUrl,'companyCode'=>$companyCode,'roles'=>$roles]);
     }
     public function store(Request $request){
         
-        // echo '<pre>';print_r($request->all()); exit();
+//echo '<pre>';print_r($request->all()); exit();
  
          $validator = Validator::make($request->all(), [
              'medicine_name' => 'required|max:250',
@@ -163,6 +185,10 @@ class MedicineController extends Controller
          if(auth()->user()->role()->first()->name=="Admin")
          {
              $backUrl='admin-medicine-list';
+         }
+         if(auth()->user()->role()->first()->name=="Manager")
+         {
+             $backUrl='manager-medicine-list';
          }
          
          return redirect()->route($backUrl)->with('success',__('locale.medicine_created_successfully'));
@@ -249,6 +275,7 @@ class MedicineController extends Controller
         //  'code'=>$inventory->code,
          // Add other columns and values as needed
      ]);
+
      if(auth()->user()->role()->first()->name=="superadmin")
      {
          $backUrl='medicine-list';
@@ -256,6 +283,10 @@ class MedicineController extends Controller
      if(auth()->user()->role()->first()->name=="Admin")
      {
          $backUrl='admin-medicine-list';
+     }
+     if(auth()->user()->role()->first()->name=="Manager")
+     {
+         $backUrl='manager-medicine-list';
      }
      
      return redirect()->route($backUrl)->with('success', __('locale.medicine_update_success'));

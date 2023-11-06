@@ -47,7 +47,7 @@
                   <small class="errorTxt1"></small>
             </div> -->
 
-            <!-- @if(isset($userType) && $userType!=config('custom.superadminrole'))
+            @if(isset($userType) && $userType!=config('custom.superadminrole'))
                   <input type="hidden" name="company" value="{{Helper::loginUserCompanyId()}}"/>
                   @else
                   <div class="col s12 input-field">
@@ -62,7 +62,7 @@
                     <label for="company">{{__('locale.Care home code')}}</label>
                     <small class="errorTxt7"></small>
                   </div>
-            @endif -->
+            @endif
            
                 <!-- <div class="input-field col m6 s12">
                   <label for="name">{{__('locale.name')}}*</label>
@@ -72,7 +72,7 @@
                 
                 
                 
-                <input type="hidden" name="company" value=""/>
+                <!-- <input type="hidden" name="company" value=""/>
                   <div class="col s12 input-field">
                     <select class="error" id="company" name="company" data-error=".errorTxt7" required>
                       <option value="">Choose {{__('locale.code')}}</option>
@@ -84,7 +84,7 @@
                     </select>
                     <label for="company">{{__('locale.Care home code')}}*</label>
                     <small class="errorTxt7"></small>
-                  </div>
+                  </div> -->
             
                 <div class="input-field col m6 s12">
                   <label for="address1">{{__('locale.medicine_name')}}</label>
