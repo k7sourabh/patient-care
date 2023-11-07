@@ -27,5 +27,6 @@ return [
     "superadminrole"=>"superadmin",
     "buyerTypeArray"=>['domestic','Foreign'],
     "modulePermissionArray"=>['manager','patient','care','medicine_master','disease_master','inventory_master','supplier_master','stock_in','stock_out','patient_sechedule'],
-    "admin_manager_role"=>['admin','manager']
+    "admin_manager_role"=>['admin','manager'],
+    "purchase_issue"=>['purchase','issue']
 ];

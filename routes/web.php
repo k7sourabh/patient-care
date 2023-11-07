@@ -44,6 +44,8 @@ use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PatientmedicineController;
 use App\Http\Controllers\PatientscheduleController;
 use App\Http\Controllers\PatientcarermapController;
+use App\Http\Controllers\MedicineStockManagement;
+
 
 
 
@@ -226,6 +228,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [DashboardController::class, 'dashboardSuperadminModern'])->name('superadmin.dashboard');
         Route::get('/login', [LoginController::class, 'showLoginForm']);
 
+        /** medicine-stock-management **/
+        Route::get('medicine-stock-management/create',[MedicineStockManagement::class,'create'])->name('superadmin.medicine-stock-management.create');
+        Route::post('/medicine-stock-management', [MedicineStockManagement::class, 'store'])->name('superadmin.medicine-stock-management.store');
+        Route::get('medicine-stock-management',[MedicineStockManagement::class,'index'])->name('superadmin.medicine-stock-management.list');
+        Route::post('getMedicine', [MedicineStockManagement::class, 'getMedicine'])->name('superadmin.getMedicine');
+        
         /** company route */
         Route::resource('/company', CompanyController::class);
         // Route::get('/company/{id}/edit', [CompanyController::class,'edit'])->index('superadmin');

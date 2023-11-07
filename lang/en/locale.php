@@ -53,6 +53,7 @@ return [
     "supplier_doc_no"=>"Supplier doc no",
     "Select inventory name"=>"Select inventory name",
     "stock_created_successfully"=>"Stock created successfully",
+    'created_successfully' =>'Created successfully',
     "stock_out"=>"Stock out",
     "stock_out_list"=>"Stock out list",
     "patient_code"=>"Patient code",
@@ -360,6 +361,7 @@ return [
     "stockIn" => "Stock In",
     "stockOut" => "Stock Out",
     "code" => "Code",
+    "issue" => "Issue",
     "food" => "Food",
     "medicine" => "Medicine",
     "vital" => "Vitals",
@@ -409,6 +411,7 @@ return [
     "patient_disease_update"=>"Patient disease updated successfully",
     "medicinemaster"=>"Medicine master",
     "medicine_name"=>"Medicine name",
+    "purchase_issue"=>"Purchase/Issue",
     "medicine_created_successfully"=>"Medicine created successfully",
     "medicine_update_success"=>"Medicine updated successfully",
     "patient_medicine"=>"Patient medicine",
@@ -431,7 +434,8 @@ return [
     "mapped_successfully"=>"Mapped successfully",
     "Patient_disease_created_successfully"=>"Patient disease created successfully",
     "disease_update_success"=>"Disease updated successfully",
-    
+    "medicine-stock"=>"Medicine Stock",
+    "date"=>"Date"
 
 
 
