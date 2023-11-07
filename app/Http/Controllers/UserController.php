@@ -1188,13 +1188,17 @@ class UserController extends Controller
                 {$q->where('id', 'like', '%'.$request->seach_term.'%')
                 ->orWhere('name', 'like', '%'.$request->seach_term.'%');
                 })->paginate($perpage);
+                $perPage = $perpage;
+                $page = $carerResult->currentPage();
                 //  print_r($carerResult);
                 //  die;
                         
-            return view('pages.carer.carer-list-ajax', compact('carerResult','editUrl','deleteUrl'))->render();
+            return view('pages.carer.carer-list-ajax', compact('carerResult','editUrl','deleteUrl','page','perPage'))->render();
         }
 
         $carerResult = $carerResult->paginate($perpage);
+        $perPage = $perpage;
+        $page = $carerResult->currentPage();
         
        // echo"<pre>";print_r($patientResult);die;
         // echo $patientResult=User::with('company')->whereHas('role',function($role_q){
@@ -1202,7 +1206,7 @@ class UserController extends Controller
         // })->select(['name','email','phone','address','image','website_url','id','blocked'])->toSql();
         // die;
 
-        return view('pages.carer.carer-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'carerResult'=>$carerResult,'pageTitle'=>$pageTitle,'paginationUrl'=>$paginationUrl,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl]);
+        return view('pages.carer.carer-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'carerResult'=>$carerResult,'pageTitle'=>$pageTitle,'paginationUrl'=>$paginationUrl,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'page'=>$page,'perPage'=>$perPage]);
     }
     public function createCarer($id='')
     {
