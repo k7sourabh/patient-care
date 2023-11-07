@@ -28,6 +28,8 @@ return [
     "option"=>"Option",
     "user master list"=>'User master list',
     "inventory_created_successfully"=>"Inventory created successfully",
+    "inventory_updated_successfully"=>"Inventory updated successfully",
+
     "patient_schedule"=>"Patient schedule",
     "patient_name"=>"Patient name",
     "time"=>"Time",
@@ -317,7 +319,7 @@ return [
     "Offer Price"=>"Offer Price",
     "Quantity"=>"Quantity",
     "select type"=>"Select Type",
-    'success common add'=>"Successfully Added",
+    "success common add"=>"Successfully Added",
     "product delete errormessage"=>"Product is not deleted because it is in the Cart and Order list",
     "product delete successmessage"=>"Product is deleted successfully",
     "sub category delete successmessage"=>"Sub Category is deleted successfully",
@@ -427,6 +429,8 @@ return [
     "patient_carer_map_list"=>"Patient carer map list",
     "Patient carer map"=>"Patient carer mapping",
     "mapped_successfully"=>"Mapped successfully",
+    "Patient_disease_created_successfully"=>"Patient disease created successfully",
+    "disease_update_success"=>"Disease updated successfully",
     
 
 

@@ -140,35 +140,41 @@ class DeceaseInventoryController extends Controller
 
     public function edit($id)
     {
+       // echo"edit";die;
         $userType = auth()->user()->role()->first()->name;
         $productIds = [];
-        if($userType=="superadmin")
-        {   
-            $formUrl = 'inventory-mapping.update';
-        }
-        if($userType=="Admin")
-        {   
-            $formUrl = 'admin-inventory-mapping-update';
-        }
         $breadcrumbs = [
             ['link' => "/", 'name' => "Home"], ['link' => "superadmin/product-mapping", 'name' => __("locale.inventory mapping")], ['name' => "Edit"],
         ];
         //Pageheader set true for breadcrumbs
-
+        
         $deceaseResult = Decease::select(['id','name','code'])->get();
         $inventoryResult = Inventory::select(['id','code','name'])->get();
         $mappingResult = DeceaseInventoryMapping::with('decease','inventory')->select('id','decease_id','inventory_id')->where('id',$id)->get();
         // foreach($mappingResult as $map_val){
-        //     $productIds[] = $map_val->decease_id;
-        // }
-       // echo"<pre>";print_r($mappingResult);die;
-        $pageConfigs = ['pageHeader' => true];
-        $pageTitle = __('locale.Disease inventory edit');
+            //     $productIds[] = $map_val->decease_id;
+            // }
+            // echo"<pre>";print_r($mappingResult);die;
+            $pageConfigs = ['pageHeader' => true];
+            $pageTitle = __('locale.Disease inventory edit');
+            if($id!=''){
+                //$permission_arr = [];
+                $mappingResult = DeceaseInventoryMapping::find($id);
+            if($userType=="superadmin")
+            {   
+                $formUrl = 'inventory-mapping.update';
+            }
+            if($userType=="Admin")
+            {   
+                $formUrl = 'admin-inventory-mapping-update';
+            }
+        }
+       // dd($mappingResult);
         return view('pages.inventory-mapping.create',['breadcrumbs' => $breadcrumbs], ['pageConfigs' => $pageConfigs,'pageTitle'=>$pageTitle,'formUrl'=>$formUrl,'mappingResult'=>$mappingResult,'productIds'=>$productIds,'deceaseResult'=>$deceaseResult,'inventoryResult'=>$inventoryResult]);
     }
     public function update(Request $request, $id)
     {
-        // echo"<pre>";print_r($request->all());die;
+         //echo"<pre>";print_r($request->all());die;
         $validator = Validator::make($request->all(), [
             'decease_id' => 'required',
             "inventory_id" => "required",

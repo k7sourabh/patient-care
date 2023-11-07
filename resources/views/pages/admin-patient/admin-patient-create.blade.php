@@ -118,7 +118,7 @@
                     <small class="errorTxt6"></small>
                   </div>
                 </div>
-                <div class="input-field col m6 s12">
+                <!-- <div class="input-field col m6 s12">
                   <label for="state">{{__('locale.state')}}</label>
                   <input id="" type="text" name="state" data-error=".errorTxt4" value="{{(isset($user_result->state) && $user_result->state!='NULL') ? $user_result->state : old('state')}}">
                   <small class="errorTxt4"></small>
@@ -128,8 +128,8 @@
                   <label for="city">{{__('locale.city')}}</label>
                   <input id="" type="text" name="city" data-error=".errorTxt4" value="{{(isset($user_result->city) && $user_result->city!='NULL') ? $user_result->city : old('city')}}">
                   <small class="errorTxt4"></small>
-                </div>
-                <!-- <div class="col m6 s12">
+                </div>-->
+                 <div class="col m6 s12">
                   <label for="state">{{__('locale.state')}} *</label>
                   <div class="input-field">
                     <select class="error" id="state" name="state" data-error=".errorTxt7">
@@ -156,7 +156,7 @@
                     </select>
                     <small class="errorTxt8"></small>
                   </div>
-                </div> -->
+                </div>
                 
                 <div class="input-field col m6 s12">
                   <label for="Zip Code">{{__('locale.ZipCode')}}</label>
