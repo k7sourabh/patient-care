@@ -14,7 +14,9 @@
 <div id="login-page" class="row">
   <div class="col s12 m6 l4 z-depth-4 card-panel border-radius-6 login-card bg-opacity-8">
     <p style="text-align:center;">
-    <img src="{{asset('images/gallery/logo.png')}}" style="width:45%;"/></p>
+    <img src="{{asset('images/gallery/logo.png')}}" style="width:45%;"/>
+    </p>
+    @include('panels.flashMessages')
     <form class="login-form" method="POST" action="{{ route('login') }}">
       @csrf
       <div class="row">

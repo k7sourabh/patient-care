@@ -175,7 +175,7 @@
                 </div>
                 <div class="input-field col m6 s12">
                   <label for="password">{{__('locale.password')}}*</label>
-                  <input id="" type="password" name="password2" data-error=".errorTxt3" value="{{(isset($user_result->password2)) ? $user_result->password2 : old('password2')}}">
+                  <input id="" type="password" name="password" data-error=".errorTxt3" value="{{(isset($user_result->password2)) ? $user_result->password2 : old('password')}}">
                   <small class="errorTxt3"></small>
                 </div>
 
@@ -210,7 +210,8 @@
                     </select>
                     <label>{{__('locale.block')}}</label>
                 </div>
-
+                
+                {{--
                 <!-- permission start -->
                 <div class="col s12 users-permission-section {{(isset($user_result->typeselect) && $user_result->typeselect!='' && in_array($user_result->typeselect,config('custom.admin_manager_role'))) ? 'hide-section' : ''}}">
                   <table class="mt-1">
@@ -283,7 +284,7 @@
                   <!-- </div> -->
                 </div>
                 <!-- permission end -->
-
+                --}}
                 
                 <div class="input-field col s12">
                   <button class="btn waves-effect waves-light right submit" type="submit" name="action">Submit
@@ -320,6 +321,7 @@
     var city_value = "{{(isset($user_result->city) && $user_result->city!='NULL') ? $user_result->city : old('state')}}";
     var company_value = "{{(isset($user_result->company[0]->id) && $user_result->company[0]->id!='NULL') ? $user_result->company[0]->id : old('company')}}";
     var option_for_block = "{{(isset($user_result->option_for_block) && $user_result->option_for_block!='NULL') ? $user_result->option_for_block : old('option_for_block')}}";
+
     console.log(state_value);
     $('#country').val(country_value);
     $('#country').formSelect();

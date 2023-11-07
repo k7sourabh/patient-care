@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -86,6 +88,37 @@ class LoginController extends Controller
             'pageConfigs' => $pageConfigs,
             'formUrl' => $formUrl
         ]);
+    }
+
+    public function login(Request $request){
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
+        }
+        $creadentials = array('email'=>$request->email,'password'=>$request->password);
+        if(Auth::attempt($creadentials)){
+            if(auth()->user()->option_for_block==1){
+                Auth::logout();
+                return redirect()->back()->with('error',__('auth.blocked'));
+            }
+            
+            if(auth()->user()->role()->first()->id==1){
+                return redirect()->intended('superadmin');
+            }else{
+                return redirect()->intended('/');
+            }
+        }
+        else
+        {
+            return redirect()->back()->with('error',trans('auth.failed'));
+        }
     }
     // // Login
     // public function postLoginFormSuperadmin()

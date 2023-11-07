@@ -227,11 +227,12 @@ class UserController extends Controller
         
         unset($request['permission_allow']);
         if(isset($request['password']) && $request['password']!=''){
+            $request['password2'] = $request['password'];
             $request['password'] = Hash::make($request['password']);
         }else{
             unset($request['password']);
         }
-
+        //dd($request->all());
         $user = User::where('id',$id)->update($request->all());
 
         $backurl = 'superadmin.'.strtolower($request->typeselect).'-list';
