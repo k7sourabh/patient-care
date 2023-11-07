@@ -262,7 +262,7 @@ class InventoryController extends Controller
         }
     
     // Check if the update was successful
-    return redirect()->route($backUrl)->with('success', __('locale.company_admin_update_success'));
+    return redirect()->route($backUrl)->with('success', __('locale.inventory_updated_successfully'));
     
     
     }

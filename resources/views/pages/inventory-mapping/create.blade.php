@@ -26,13 +26,13 @@
         <div class="">
           <div id="view-validations" style="padding-top:40px">
          
-          <form class="formValidate" method="post" action="{{ isset($mappingResult) ? route($formUrl,$mappingResult[0]->id) : route($formUrl) }}">
+          <form class="formValidate" method="post" action="{{ isset($mappingResult) ? route($formUrl,$mappingResult->id) : route($formUrl) }}">
 
             @csrf
 
-              <!-- @if(isset($mappingResult[0]))
+              @if(isset($mappingResult))
                   @method('PUT') Use PUT for updating
-              @endif -->
+              @endif
 
             
 
@@ -97,12 +97,12 @@
 @section('page-script')
 <script>
 window.onload=function(){
-    var disease_value="{{(isset($mappingResult[0]->decease_id) && $mappingResult[0]->decease_id!='NULL') ? $mappingResult[0]->decease_id : old('decease_id')}}";
+    var disease_value="{{(isset($mappingResult->decease_id) && $mappingResult->decease_id!='NULL') ? $mappingResult->decease_id : old('decease_id')}}";
     console.log('disease_value',disease_value);
     $('#disease').val(disease_value);
     $('#disease').formSelect();
 
-    var inventory_value="{{(isset($mappingResult[0]->inventory_id) && $mappingResult[0]->inventory_id!='NULL') ? $mappingResult[0]->inventory_id : old('inventory_id')}}";
+    var inventory_value="{{(isset($mappingResult->inventory_id) && $mappingResult->inventory_id!='NULL') ? $mappingResult->inventory_id : old('inventory_id')}}";
     console.log('inventory_value',inventory_value);
     $('#inventory').val(inventory_value);
     $('#inventory').formSelect();
