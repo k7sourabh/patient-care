@@ -9,8 +9,8 @@
     </tr>
   </thead>
   <tbody>
-  @php
-    $serialNumber = 1;
+    @php
+    $serialNumber = ($page - 1) * $perPage + 1; // Calculate the correct serial number
     @endphp
     @if(isset($medicineResult) && !empty($medicineResult->items()))
     @foreach($medicineResult as $user_key => $user_value)

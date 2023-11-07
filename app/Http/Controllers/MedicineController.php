@@ -82,13 +82,17 @@ class MedicineController extends Controller
                 $q->where('id', 'like', '%'.$request->seach_term.'%')
                             ->orWhere('medicine_name', 'like', '%'.$request->seach_term.'%');
                         }) ->paginate($perpage);
+                        $perPage = $perpage;
+                        $page = $medicineResult->currentPage();
                         
-            return view('pages.medicine.medicine-list-ajax', compact('medicineResult','editUrl','deleteUrl'))->render();
+            return view('pages.medicine.medicine-list-ajax', compact('medicineResult','editUrl','deleteUrl','page','perPage'))->render();
         }
 
         $medicineResult = $medicineResult->paginate($perpage);
+        $perPage = $perpage;
+        $page = $medicineResult->currentPage();
         
-        return view('pages.medicine.medicine-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'medicineResult'=>$medicineResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl]);
+        return view('pages.medicine.medicine-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'medicineResult'=>$medicineResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'page'=>$page,'perPage'=>$perPage]);
     }
     public function create($id='')
     {

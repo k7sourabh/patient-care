@@ -71,13 +71,16 @@ class StockInController extends Controller
                             ->orWhere('doc_no', 'like', '%'.$request->seach_term.'%');
                             
                         })->paginate($perpage);//search in laravel through relationship
-                        
-                        return view('pages.stockin.stockin-list-ajax', compact('stockResult','editUrl','deleteUrl'))->render();
+                        $perPage = $perpage;
+                        $page = $stockResult->currentPage();
+                        return view('pages.stockin.stockin-list-ajax', compact('stockResult','editUrl','deleteUrl','page','perPage'))->render();
                     }
                     
                     $stockResult = $stockResult->paginate($perpage);
+                    $perPage = $perpage;
+                    $page = $stockResult->currentPage();
         
-        return view('pages.stockin.stockin-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'roles'=>$roles,'stockResult'=>$stockResult]);
+        return view('pages.stockin.stockin-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'roles'=>$roles,'stockResult'=>$stockResult,'page'=>$page,'perPage'=>$perPage]);
     }
 
     public function create($id='')

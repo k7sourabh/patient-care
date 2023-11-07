@@ -13,10 +13,13 @@
     </tr>
   </thead>
   <tbody>
+    @php
+    $serialNumber = ($page - 1) * $perPage + 1; // Calculate the correct serial number
+    @endphp
     @if(isset($stockoutResult))
     @foreach($stockoutResult as $stock_key => $stock_value)
     <tr>
-    <td>{{$stock_key+1}}</td>
+    <td>{{$serialNumber}}</td>
     <td>{{$stock_value->doc_no}}</td>
     <td>{{$stock_value->date}}</td>
     <td>{{$stock_value->patientname->name}}</td>
@@ -40,6 +43,9 @@
     </td>      
       
     </tr>
+    @php
+    $serialNumber++;
+    @endphp
     @endforeach
     @else
     

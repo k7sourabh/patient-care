@@ -1,7 +1,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th></th>
+      <th>{{__('locale.s.no')}}</th>
       <th>{{__('locale.name')}}</th>
       <th>{{__('locale.email')}}</th>
       <th>{{__('locale.phone')}}</th>
@@ -12,10 +12,13 @@
     </tr>
   </thead>
   <tbody>
+    @php
+    $serialNumber = ($page - 1) * $perPage + 1; // Calculate the correct serial number
+    @endphp
     @if(isset($patientResult))
     @foreach($patientResult as $user_key => $user_value)
     <tr>
-    <td>{{$user_key+1}}</td>
+    <td>{{$serialNumber}}</td>
     <td>{{$user_value->name}}</td>
     <td>{{$user_value->email}}</td>
     <td>{{$user_value->phone}}</td>
@@ -42,8 +45,11 @@
       @else
         <a href="{{route($deleteUrl,$user_value->id)}}" onclick="return confirm('Are you sure you want to delete this item')"><i class="material-icons">delete</i></a>
       @endif
-</td>    
+    </td>    
     </tr>
+    @php
+    $serialNumber++;
+    @endphp
     @endforeach
     @else
     

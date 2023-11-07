@@ -429,7 +429,7 @@ return [
     "patient_carer_map_list"=>"Patient carer map list",
     "Patient carer map"=>"Patient carer mapping",
     "mapped_successfully"=>"Mapped successfully",
-    "Patient_disease_created_successfully"=>"Patient disease created successfully",
+    "patient_disease_created_successfully"=>"Patient disease created successfully",
     "disease_update_success"=>"Disease updated successfully",
     
 

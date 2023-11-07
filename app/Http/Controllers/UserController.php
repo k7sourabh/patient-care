@@ -63,13 +63,17 @@ class UserController extends Controller
                             $q->where('users.blocked',$request->status);
                         })
                         ->paginate($perpage);
+                        $perPage = $perpage; // Number of items per page
+                       $page = $usersResult->currentPage();
                         
-            return view('pages.users.users-list-ajax', compact('usersResult','editUrl','deleteUrl'))->render();
+            return view('pages.users.users-list-ajax', compact('usersResult','editUrl','deleteUrl','page','perPage'))->render();
         }
 
         $usersResult = $usersResult->paginate($perpage);
+        $perPage = $perpage; // Number of items per page
+        $page = $usersResult->currentPage();
         
-        return view('pages.users.users-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'usersResult'=>$usersResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'paginationUrl'=>$paginationUrl]);
+        return view('pages.users.users-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'usersResult'=>$usersResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'paginationUrl'=>$paginationUrl,'page'=>$page,'perPage'=>$perPage]);
     }
 
 
@@ -595,17 +599,21 @@ class UserController extends Controller
                     ->orWhere('phone', 'like', '%'.$request->seach_term.'%')
                     ->orWhere('address', 'like', '%'.$request->seach_term.'%');
                 })->paginate($perpage);
+                $perPage = $perpage; // Number of items per page
+                $page = $patientResult->currentPage();
         
-                return view('pages.paitent.paitent-list-ajax', compact('patientResult','editUrl','deleteUrl'))->render();
+                return view('pages.paitent.paitent-list-ajax', compact('patientResult','editUrl','deleteUrl','page','perPage'))->render();
             }
             $patientResult = $patientResult->paginate($perpage);
+            $perPage = $perpage; // Number of items per page
+            $page = $patientResult->currentPage();
        // echo"<pre>";print_r($patientResult);die;
         // echo $patientResult=User::with('company')->whereHas('role',function($role_q){
         //     $role_q->where('name','Patient');
         // })->select(['name','email','phone','address','image','website_url','id','blocked'])->toSql();
         // die;
 
-        return view('pages.paitent.paitent-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'patientResult'=>$patientResult,'pageTitle'=>$pageTitle,'paginationUrl'=>$paginationUrl,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl]);
+        return view('pages.paitent.paitent-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'patientResult'=>$patientResult,'pageTitle'=>$pageTitle,'paginationUrl'=>$paginationUrl,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'page'=>$page,'perPage'=>$perPage]);
     }
     public function createPatient($id='')
     {
@@ -888,17 +896,21 @@ class UserController extends Controller
                     ->orWhere('phone', 'like', '%'.$request->seach_term.'%')
                     ->orWhere('address', 'like', '%'.$request->seach_term.'%');
                 })->paginate($perpage);
+                $perPage = $perpage;
+                $page = $patientResult->currentPage();
         
-                return view('pages.manager-patient.manager-patient-list-ajax', compact('patientResult','editUrl','deleteUrl'))->render();
+                return view('pages.manager-patient.manager-patient-list-ajax', compact('patientResult','editUrl','deleteUrl','page','perPage'))->render();
             }
             $patientResult = $patientResult->paginate($perpage);
+            $perPage = $perpage;
+            $page = $patientResult->currentPage();
        // echo"<pre>";print_r($patientResult);die;
         // echo $patientResult=User::with('company')->whereHas('role',function($role_q){
         //     $role_q->where('name','Patient');
         // })->select(['name','email','phone','address','image','website_url','id','blocked'])->toSql();
         // die;
 
-        return view('pages.manager-patient.manager-patient-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'patientResult'=>$patientResult,'pageTitle'=>$pageTitle,'paginationUrl'=>$paginationUrl,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl]);
+        return view('pages.manager-patient.manager-patient-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'patientResult'=>$patientResult,'pageTitle'=>$pageTitle,'paginationUrl'=>$paginationUrl,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'page'=>$page,'perPage'=>$perPage]);
     }
     public function managercreatePatient($id='')
     {
@@ -1430,13 +1442,17 @@ class UserController extends Controller
                 {$q->where('id', 'like', '%'.$request->seach_term.'%')
                 ->orWhere('name', 'like', '%'.$request->seach_term.'%');
                 })->paginate($perpage);
+                $perPage = $perpage;
+                $page = $carerResult->currentPage();
                 //  print_r($carerResult);
                 //  die;
                         
-            return view('pages.manager-carer.manager-carer-list-ajax', compact('carerResult','editUrl','deleteUrl'))->render();
+            return view('pages.manager-carer.manager-carer-list-ajax', compact('carerResult','editUrl','deleteUrl','page','perPage'))->render();
         }
 
         $carerResult = $carerResult->paginate($perpage);
+        $perPage = $perpage;
+        $page = $carerResult->currentPage();
         
        // echo"<pre>";print_r($patientResult);die;
         // echo $patientResult=User::with('company')->whereHas('role',function($role_q){
@@ -1444,7 +1460,7 @@ class UserController extends Controller
         // })->select(['name','email','phone','address','image','website_url','id','blocked'])->toSql();
         // die;
 
-        return view('pages.manager-carer.manager-carer-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'carerResult'=>$carerResult,'pageTitle'=>$pageTitle,'paginationUrl'=>$paginationUrl,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl]);
+        return view('pages.manager-carer.manager-carer-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'carerResult'=>$carerResult,'pageTitle'=>$pageTitle,'paginationUrl'=>$paginationUrl,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'page'=>$page,'perPage'=>$perPage]);
     }
     public function managercreateCarer($id='')
     {
@@ -1698,6 +1714,7 @@ class UserController extends Controller
         })->select(['name','email','phone','address1','image','website_url','id','blocked','option_for_block'])->orderBy('id','DESC');
 
         if (auth()->user()->role()->first()->name == "Admin") {
+          //  echo "manager in";die;
             $userTypeid =auth()->user()->company()->first()->id; // Assuming 'company_id' is the field on the User model
         
             $managerResult = User::with('company')->whereHas('company', function ($company_q) {
@@ -1713,12 +1730,14 @@ class UserController extends Controller
                             ->orWhere('name', 'like', '%'.$request->seach_term.'%');
                             
             })->paginate($perpage);//search in laravel through relationship
-                        
-            return view('pages.manager.manager-list-ajax', compact('managerResult','editUrl','deleteUrl'))->render();
+            $perPage = $perpage; // Number of items per page
+            $page = $managerResult->currentPage();          
+            return view('pages.manager.manager-list-ajax', compact('managerResult','editUrl','deleteUrl','page','perPage'))->render();
         }
 
         $managerResult = $managerResult->paginate($perpage);
-        
+        $perPage = $perpage; // Number of items per page
+        $page = $managerResult->currentPage(); 
        // echo"<pre>";print_r($managerResult);die;
         
 
@@ -1727,7 +1746,7 @@ class UserController extends Controller
         // })->select(['name','email','phone','address','image','website_url','id','blocked'])->toSql();
         // die;
 
-        return view('pages.manager.manager-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'managerResult'=>$managerResult,'pageTitle'=>$pageTitle,'paginationUrl'=>$paginationUrl,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl]);
+        return view('pages.manager.manager-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'managerResult'=>$managerResult,'pageTitle'=>$pageTitle,'paginationUrl'=>$paginationUrl,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'page'=>$page,'perPage'=>$perPage]);
     }
 
     public function createManager($id='')
@@ -1948,19 +1967,22 @@ class UserController extends Controller
                             ->orWhere('name', 'like', '%'.$request->seach_term.'%');
                             
             })->paginate($perpage);//search in laravel through relationship
+            $perPage = $perpage; // Number of items per page
+            $page = $adminResult->currentPage();
             //print_r($adminResult);die;     
-            return view('pages.admin.admin-list-ajax', compact('adminResult','editUrl','deleteUrl'))->render();
+            return view('pages.admin.admin-list-ajax', compact('adminResult','editUrl','deleteUrl','page','perPage'))->render();
         }
 
         $adminResult = $adminResult->paginate($perpage);//pagination only
-
+        $perPage = $perpage; // Number of items per page
+        $page = $adminResult->currentPage();
        // echo"<pre>";print_r($patientResult);die;
         // echo $patientResult=User::with('company')->whereHas('role',function($role_q){
         //     $role_q->where('name','Patient');
         // })->select(['name','email','phone','address','image','website_url','id','blocked'])->toSql();
         // die;
 
-        return view('pages.admin.admin-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'adminResult'=>$adminResult,'pageTitle'=>$pageTitle,'paginationUrl'=>$paginationUrl,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl]);
+        return view('pages.admin.admin-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'adminResult'=>$adminResult,'pageTitle'=>$pageTitle,'paginationUrl'=>$paginationUrl,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'page'=>$page,'perPage'=>$perPage]);
     }
 
 }

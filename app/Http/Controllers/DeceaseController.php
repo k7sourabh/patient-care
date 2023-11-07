@@ -62,13 +62,17 @@ class DeceaseController extends Controller
                             ->orWhere('symptoms', 'like', '%'.$request->seach_term.'%');
                            
                         }) ->paginate($perpage);
+                        $perPage = $perpage;
+            $page = $deceaseResult->currentPage(); 
                         
-            return view('pages.decease.decease-list-ajax', compact('deceaseResult','editUrl','deleteUrl'))->render();
+            return view('pages.decease.decease-list-ajax', compact('deceaseResult','editUrl','deleteUrl','page','perPage'))->render();
         }
 
         $deceaseResult = $deceaseResult->paginate($perpage);
+        $perPage = $perpage;
+        $page = $deceaseResult->currentPage(); 
         
-        return view('pages.decease.decease-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'deceaseResult'=>$deceaseResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl]);
+        return view('pages.decease.decease-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'deceaseResult'=>$deceaseResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'page'=>$page,'perPage'=>$perPage]);
     }
 
     public function create($id='')

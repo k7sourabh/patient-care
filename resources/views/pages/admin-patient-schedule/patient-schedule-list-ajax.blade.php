@@ -14,10 +14,13 @@
     </tr>
   </thead>
   <tbody>
+    @php
+    $serialNumber = ($page - 1) * $perPage + 1; // Calculate the correct serial number
+    @endphp
     @if(isset($patientscheduleResult))
     @foreach($patientscheduleResult as $user_key => $user_value)
     <tr>
-    <td>{{$user_key+1}}</td>
+    <td>{{$serialNumber}}</td>
     <td>{{$user_value->patientname->name}}</td>
     <td>{{$user_value->date}}</td>
     <td>{{$user_value->attended_on_time}}</td>
@@ -43,6 +46,9 @@
     </td>       
       
     </tr>
+    @php
+    $serialNumber++;
+    @endphp
     @endforeach
     @else
     

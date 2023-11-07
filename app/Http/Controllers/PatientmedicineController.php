@@ -39,23 +39,31 @@ class PatientmedicineController extends Controller
         //     }
         // )->select(['id','name','email','phone','address1','image','website_url','blocked'])->orderBy('id','DESC');
         $medicineResult = Patient_medicine::with(['patientname','medicine','carehome'])->select(['id','medicine_code','patient_code','c_home_code','remark','updated_by_user','doses'])->orderBy('id','DESC');
-        //echo"<pre>";print_r($deceaseResult);die;
+
+       // echo"<pre>";print_r($medicineResult);die;
+        if(auth()->user()->role()->first()->name=="Admin")
+        {
+            $medicineResult = Patient_medicine::with(['patientname','medicine','carehome'])->whereHas('carehome', function ($company_q) {
+                $company_q->where('id', '=',auth()->user()->company()->first()->id);})->select(['id','medicine_code','patient_code','c_home_code','remark','updated_by_user','doses'])->orderBy('id','DESC');
+        }
         //$deceaseResult = Decease::select(['id','code','name'])->get();
         $editUrl = 'admin-patient-medicine-edit';
         if($request->ajax()){
             $medicineResult = $medicineResult->whereHas('medicine', function($q)use($request){
                 $q->where('id', 'like', '%'.$request->seach_term.'%')
                             ->orWhere('medicine_name', 'like', '%'.$request->seach_term.'%');
-                            
-                           
-                        }) ->paginate($perpage);
+                         }) ->paginate($perpage);
+                         $perPage = $perpage;
+                         $page = $medicineResult->currentPage();
                         
-            return view('pages.patient-medicine.patient-medicine-list-ajax', compact('medicineResult','editUrl','deleteUrl'))->render();
+            return view('pages.patient-medicine.patient-medicine-list-ajax', compact('medicineResult','editUrl','deleteUrl','page','perPage'))->render();
         }
 
         $medicineResult = $medicineResult->paginate($perpage);
+        $perPage = $perpage;
+        $page = $medicineResult->currentPage();
         
-        return view('pages.patient-medicine.patient-medicine-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'medicineResult'=>$medicineResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl]);
+        return view('pages.patient-medicine.patient-medicine-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'medicineResult'=>$medicineResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'page'=>$page,'perPage'=>$perPage]);
     }
 
     public function createPatientmedicine($id='')

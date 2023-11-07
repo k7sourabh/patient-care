@@ -41,6 +41,11 @@ class PatientscheduleController extends Controller
         $patientscheduleResult = Patient_schedule::with(['patientname','carername','alternatecarername','role','comp'])->where(function ($company_q) {
             $company_q->where('carer_assigned_by', '=',auth()->user()->id);})->select(['patient_schedule.id','patient_id','date','time','carer_code','carer_assigned_by','alternate_carer_code','remarks','attended','attended_remarks','attended_on_time','company'])->orderBy('id','desc');
        //echo"<pre>";print_r($patientscheduleResult);die;
+       if(auth()->user()->role()->first()->name=="Admin")
+       {
+        $patientscheduleResult = Patient_schedule::with(['patientname','carername','alternatecarername','role','comp'])->whereHas('comp', function ($company_q) {
+               $company_q->where('id', '=',auth()->user()->company()->first()->id);})->select(['patient_schedule.id','patient_id','date','time','carer_code','carer_assigned_by','alternate_carer_code','remarks','attended','attended_remarks','attended_on_time','company'])->orderBy('id','DESC');
+       }
         $editUrl = 'admin-patient-schedule-edit';
         if($request->ajax()){
             // $patientscheduleResult = $patientscheduleResult->when($request->seach_term, function($q)use($request){
@@ -53,13 +58,16 @@ class PatientscheduleController extends Controller
                             ->orWhere('name', 'like', '%'.$request->seach_term.'%');
                             
             })->paginate($perpage);//search in laravel through relationship
-                        
-            return view('pages.admin-patient-schedule.patient-schedule-list-ajax', compact('patientscheduleResult','editUrl','deleteUrl'))->render();
+            $perPage = $perpage;
+            $page = $patientscheduleResult->currentPage();            
+            return view('pages.admin-patient-schedule.patient-schedule-list-ajax', compact('patientscheduleResult','editUrl','deleteUrl','page','perPage'))->render();
         }
 
         $patientscheduleResult = $patientscheduleResult->paginate($perpage);
+        $perPage = $perpage;
+        $page = $patientscheduleResult->currentPage();
         
-        return view('pages.admin-patient-schedule.patient-schedule-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'patientscheduleResult'=>$patientscheduleResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'roles'=>$roles]);
+        return view('pages.admin-patient-schedule.patient-schedule-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'patientscheduleResult'=>$patientscheduleResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'roles'=>$roles,'page'=>$page,'perPage'=>$perPage]);
     }
 
     public function createPatientschedule($id='')

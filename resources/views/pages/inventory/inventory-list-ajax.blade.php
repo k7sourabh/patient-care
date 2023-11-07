@@ -9,10 +9,13 @@
     </tr>
   </thead>
   <tbody>
+    @php
+    $serialNumber = ($page - 1) * $perPage + 1; // Calculate the correct serial number
+    @endphp
     @if(isset($inventoryResult) && !empty($inventoryResult->items()))
     @foreach($inventoryResult as $user_key => $user_value)
     <tr>
-    <td>{{$user_key+1}}</td>
+    <td>{{$serialNumber}}</td>
     <td>{{$user_value->name}}</td>
     <td>{{$user_value->type}}</td>
     <td>{{(isset($user_value->option)) ? $user_value->option : ''}}</td>
@@ -36,6 +39,9 @@
       @endif
     </td>      
     </tr>
+    @php
+    $serialNumber++;
+    @endphp
     @endforeach
     @else
     

@@ -31,20 +31,25 @@ class CompanyController extends Controller
         $pageConfigs = ['pageHeader' => true];
         $pageTitle = __('locale.Companies');
         $companyResult = Company::with(['countryname','statename', 'cityname'])->select(['id','company_name','company_code','address1','country','state','city','contact_person','contact_mobile','licence_valid_till','blocked','phone_no','license_to','option_for_block'])->orderBy('id','DESC');
-
+        //$perPage = 2; // Number of items per page
+       // $page = $companyResult->currentPage(); // Get the current page number
         if($request->ajax()){
             $companyResult = $companyResult->when($request->seach_term, function($q)use($request){
                             $q->Where('company_name', 'like', '%'.$request->seach_term.'%')
                             ->orWhere('company_code', 'like', '%'.$request->seach_term.'%');
                         })->paginate($perpage);
-            return view('pages.company.company-table-list', compact('companyResult'))->render();
+                       $perPage = $perpage; // Number of items per page
+                       $page = $companyResult->currentPage(); // Get the current page number
+            return view('pages.company.company-table-list', compact('companyResult','page','perPage'))->render();//**on click on page 2,it will run**//
         }
         if($companyResult->count()>0){
             $companyResultResponse = $companyResult->paginate($perpage);
+            $perPage = $perpage;
+            $page = $companyResultResponse->currentPage();//**on page load it will run**//
         }
         // dd($companyResultResponse);
         // echo '<pre>';print_r($companyResultResponse[0]->cityname);exit();
-        return view('pages.company.list',['breadcrumbs' => $breadcrumbs], ['pageConfigs' => $pageConfigs,'pageTitle'=>$pageTitle,'companyResult'=>$companyResultResponse]);
+        return view('pages.company.list',['breadcrumbs' => $breadcrumbs], ['pageConfigs' => $pageConfigs,'pageTitle'=>$pageTitle,'companyResult'=>$companyResultResponse,'page'=>$page,'perPage'=>$perPage]);
     }
 
     /**

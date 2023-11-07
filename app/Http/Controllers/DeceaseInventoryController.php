@@ -66,16 +66,20 @@ class DeceaseInventoryController extends Controller
             })->orWhereHas('inventory',function($q) use($request){
                 $q->where('name', 'like', '%'.$request->seach_term.'%');
             })->paginate($perpage);
+            $perPage = $perpage;
+            $page = $deceaseinventoryMappingResult->currentPage();
             // $deceaseinventoryMappingResult->get
-            return view('pages.inventory-mapping.ajax-list', compact('deceaseinventoryMappingResult','editUrl','deleteUrl'))->render();
+            return view('pages.inventory-mapping.ajax-list', compact('deceaseinventoryMappingResult','editUrl','deleteUrl','page','perPage'))->render();
         }
         $deceaseinventoryMappingResult = $deceaseinventoryMappingResult->paginate($perpage);
+        $perPage = $perpage;
+        $page = $deceaseinventoryMappingResult->currentPage();
 
         // $productMappingResponse  = [];
         // if($productMappingResult->count()>0){
         //     $productMappingResponse = $productMappingResult;
         // }
-        return view('pages.inventory-mapping.list',['breadcrumbs' => $breadcrumbs], ['pageConfigs' => $pageConfigs,'pageTitle'=>$pageTitle,'deceaseinventoryMappingResult'=>$deceaseinventoryMappingResult,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl]);
+        return view('pages.inventory-mapping.list',['breadcrumbs' => $breadcrumbs], ['pageConfigs' => $pageConfigs,'pageTitle'=>$pageTitle,'deceaseinventoryMappingResult'=>$deceaseinventoryMappingResult,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'page'=>$page,'perPage'=>$perPage]);
     }
 
     public function create($id='')

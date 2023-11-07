@@ -63,13 +63,17 @@ class InventoryController extends Controller
                             ->orWhere('type', 'like', '%'.$request->seach_term.'%');
                            
                         }) ->paginate($perpage);
+            $perPage = $perpage;
+            $page = $inventoryResult->currentPage();
                         
-            return view('pages.inventory.inventory-list-ajax', compact('inventoryResult','editUrl','deleteUrl'))->render();
+            return view('pages.inventory.inventory-list-ajax', compact('inventoryResult','editUrl','deleteUrl','page','perPage'))->render();
         }
 
         $inventoryResult = $inventoryResult->paginate($perpage);
+        $perPage = $perpage;
+        $page = $inventoryResult->currentPage();
         
-        return view('pages.inventory.inventory-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'inventoryResult'=>$inventoryResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl]);
+        return view('pages.inventory.inventory-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'inventoryResult'=>$inventoryResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'page'=>$page,'perPage'=>$perPage]);
     }
 
     public function create($id='')

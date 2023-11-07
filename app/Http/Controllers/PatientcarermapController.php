@@ -92,13 +92,17 @@ class PatientcarermapController extends Controller
                             ->orWhere('name', 'like', '%'.$request->seach_term.'%');
                             
             })->paginate($perpage);//search in laravel through relationship
-                        
-            return view('pages.patient-carer-map.patient-carer-map-list-ajax', compact('patientcarerResult','editUrl','deleteUrl'))->render();
+            $perPage = $perpage;
+            $page = $patientcarerResult->currentPage();          
+                      
+            return view('pages.patient-carer-map.patient-carer-map-list-ajax', compact('patientcarerResult','editUrl','deleteUrl','page','perPage'))->render();
         }
 
         $patientcarerResult = $patientcarerResult->paginate($perpage);
+        $perPage = $perpage;
+        $page = $patientcarerResult->currentPage();
         
-        return view('pages.patient-carer-map.patient-carer-map-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'patientcarerResult'=>$patientcarerResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'roles'=>$roles,'listUrl'=>$listUrl]);
+        return view('pages.patient-carer-map.patient-carer-map-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'patientcarerResult'=>$patientcarerResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'roles'=>$roles,'listUrl'=>$listUrl,'page'=>$page,'perPage'=>$perPage]);
     }
 
     public function create($id='')

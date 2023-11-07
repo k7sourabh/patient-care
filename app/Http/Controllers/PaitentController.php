@@ -52,13 +52,16 @@ class PaitentController extends Controller
                             ->orWhere('name', 'like', '%'.$request->seach_term.'%');
                             
             })->paginate($perpage);//search in laravel through relationship
-                        
-            return view('pages.patient.patient-list-ajax', compact('patientscheduleResult','editUrl','deleteUrl'))->render();
+            $perPage = $perpage;
+            $page = $patientscheduleResult->currentPage();            
+            return view('pages.patient.patient-list-ajax', compact('patientscheduleResult','editUrl','deleteUrl','page','perPage'))->render();
         }
 
         $patientscheduleResult = $patientscheduleResult->paginate($perpage);
+        $perPage = $perpage;
+        $page = $patientscheduleResult->currentPage();
         
-        return view('pages.patient.patient-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'patientscheduleResult'=>$patientscheduleResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'roles'=>$roles]);
+        return view('pages.patient.patient-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'patientscheduleResult'=>$patientscheduleResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'roles'=>$roles,'page'=>$page,'perPage'=>$perPage]);
     }
 
     public function create($id='')

@@ -1,6 +1,7 @@
 <table class="responsive-table">
 <thead>
     <tr>
+    <th data-field="">{{__('locale.s.no')}}</th>
     <th data-field="company_code">{{__('locale.code')}}</th>
     <th data-field="company_name">{{__('locale.name')}}</th>
     <th data-field="address1">{{__('locale.address')}}</th>
@@ -14,10 +15,14 @@
     </tr>
 </thead>
 <tbody>
+    @php
+    $serialNumber = ($page - 1) * $perPage + 1; // Calculate the correct serial number
+    @endphp
     @if(isset($companyResult) && !empty($companyResult))
     @foreach($companyResult as $company_value)
     
     <tr>
+        <td>{{$serialNumber}}</td>
         <td>{{$company_value->company_code}}</td>
         <td>{{$company_value->company_name}}</td>
         <td>{{$company_value->address1}}</td>
@@ -32,6 +37,9 @@
             <a href="{{route('company.destroy',$company_value->id)}}" onclick="return confirm('Are you sure you want to delete this item')"><i class="material-icons">delete</i></a>
         </td>
     </tr>
+    @php
+    $serialNumber++;
+    @endphp
     @endforeach
     @else
     <tr>

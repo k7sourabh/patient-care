@@ -40,7 +40,13 @@ class PatientdiseaseController extends Controller
         //     }
         // )->select(['id','name','email','phone','address1','image','website_url','blocked'])->orderBy('id','DESC');
         $deceaseResult = Patient_disease::with(['patientname','disease','carehome'])->select(['id','disease_code','patient_code','c_home_code','remark','updated_by_user'])->orderBy('id','DESC');
+
         //echo"<pre>";print_r($deceaseResult);die;
+        if(auth()->user()->role()->first()->name=="Admin")
+        {
+            $deceaseResult = Patient_disease::with(['patientname','disease','carehome'])->whereHas('carehome', function ($company_q) {
+                $company_q->where('id', '=',auth()->user()->company()->first()->id);})->select(['id','disease_code','patient_code','c_home_code','remark','updated_by_user'])->orderBy('id','DESC');
+        }
         //$deceaseResult = Decease::select(['id','code','name'])->get();
         $editUrl = 'admin-patient-disease-edit';
         if($request->ajax()){
@@ -50,13 +56,17 @@ class PatientdiseaseController extends Controller
                             
                            
                         }) ->paginate($perpage);
+                        $perPage = $perpage;
+                        $page = $deceaseResult->currentPage();
                         
-            return view('pages.patient-disease.patient-disease-list-ajax', compact('deceaseResult','editUrl','deleteUrl'))->render();
+            return view('pages.patient-disease.patient-disease-list-ajax', compact('deceaseResult','editUrl','deleteUrl','page','perPage'))->render();
         }
 
         $deceaseResult = $deceaseResult->paginate($perpage);
+        $perPage = $perpage;
+        $page = $deceaseResult->currentPage();
         
-        return view('pages.patient-disease.patient-disease-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'deceaseResult'=>$deceaseResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl]);
+        return view('pages.patient-disease.patient-disease-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'deceaseResult'=>$deceaseResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'page'=>$page,'perPage'=>$perPage]);
     }
 
     public function createPatientdisease($id='')

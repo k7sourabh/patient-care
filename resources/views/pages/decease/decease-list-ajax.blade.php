@@ -9,10 +9,13 @@
     </tr>
   </thead>
   <tbody>
+    @php
+    $serialNumber = ($page - 1) * $perPage + 1; // Calculate the correct serial number
+    @endphp
     @if(isset($deceaseResult) && !empty($deceaseResult->items()))
     @foreach($deceaseResult as $user_key => $user_value)
     <tr>
-    <td>{{$user_key+1}}</td>
+    <td>{{$serialNumber}}</td>
     <td>{{$user_value->name}}</td>
     <td>{{$user_value->symptoms}}</td>
     <td>{{$user_value->note}}</td>
@@ -36,6 +39,9 @@
       @endif
     </td>      
     </tr>
+    @php
+    $serialNumber++;
+    @endphp
     @endforeach
     @else
     

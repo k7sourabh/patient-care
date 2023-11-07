@@ -71,14 +71,17 @@ class StockOutController extends Controller
                              ->orWhere('doc_no', 'like', '%'.$request->seach_term.'%');
                             
                          })->paginate($perpage);//search in laravel through relationship
-                        
-                        return view('pages.stockout.stockout-list-ajax', compact('stockoutResult','editUrl','deleteUrl'))->render();
+                         $perPage = $perpage;
+                         $page = $stockoutResult->currentPage();
+                        return view('pages.stockout.stockout-list-ajax', compact('stockoutResult','editUrl','deleteUrl','page','perPage'))->render();
                     }
                     
                     $stockoutResult = $stockoutResult->paginate($perpage);
+                    $perPage = $perpage;
+                    $page = $stockoutResult->currentPage();
                     //echo"<pre>";print_r($stockResult);die;
         
-        return view('pages.stockout.stockout-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'roles'=>$roles,'stockoutResult'=>$stockoutResult]);
+        return view('pages.stockout.stockout-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'roles'=>$roles,'stockoutResult'=>$stockoutResult,'page'=>$page,'perPage'=>$perPage]);
     }
     public function create($id='')
     {

@@ -8,10 +8,13 @@
     </tr>
   </thead>
   <tbody>
+    @php
+    $serialNumber = ($page - 1) * $perPage + 1; // Calculate the correct serial number
+    @endphp
     @if(isset($deceaseinventoryMappingResult) && !empty($deceaseinventoryMappingResult))
     @foreach($deceaseinventoryMappingResult as $inventory_key => $inventory_map_value)
     <tr>
-    <td>{{$inventory_key+1}}</td>
+    <td>{{$serialNumber}}</td>
     <td>{{ isset($inventory_map_value->decease->name) ? $inventory_map_value->decease->name : '' }}</td>
     <td>{{ isset($inventory_map_value->inventory->name) ? $inventory_map_value->inventory->name : '' }}</td>
     <td>
@@ -22,6 +25,9 @@
     
     
     </tr>
+    @php
+    $serialNumber++;
+    @endphp
     @endforeach
     @else
     

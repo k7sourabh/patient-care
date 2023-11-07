@@ -72,13 +72,17 @@ class supplierController extends Controller
                         //     $q->where('users.blocked',$request->status);
                         // })
                         ->paginate($perpage);
+                        $perPage = $perpage;
+                        $page = $supplierResult->currentPage();
                         
-            return view('pages.supplier.supplier-list-ajax', compact('supplierResult','editUrl','deleteUrl'))->render();
+            return view('pages.supplier.supplier-list-ajax', compact('supplierResult','editUrl','deleteUrl','page','perPage'))->render();
         }
 
         $supplierResult = $supplierResult->paginate($perpage);
+        $perPage = $perpage;
+        $page = $supplierResult->currentPage();
        // echo $editUrl;die;
-        return view('pages.supplier.supplier-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'supplierResult'=>$supplierResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'paginationUrl'=>$paginationUrl]);
+        return view('pages.supplier.supplier-list', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'supplierResult'=>$supplierResult,'pageTitle'=>$pageTitle,'userType'=>$userType,'editUrl'=>$editUrl,'deleteUrl'=>$deleteUrl,'paginationUrl'=>$paginationUrl,'page'=>$page,'perPage'=>$perPage]);
     }
     public function create($id='')
     {
