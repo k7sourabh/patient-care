@@ -340,6 +340,15 @@
       "icon": "person_outline"
       
     },
+    {
+      "for" :["superadmin"],
+      "url": "superadmin/medicine-stock-management",
+      "name": "medicine-stock",
+      "i18n": "medicine-stock",
+      "class": "waves-effect waves-cyan",
+      "slug": "medicine-stock",
+      "icon": "healing"
+    },
 
     {
       "for" :["Manager"],
@@ -377,6 +386,17 @@
       "for" :["Manager"],  
       "url": "manager/manager-medicine-list",
       "name": "medicine",
+      "i18n": "Profile",
+      "permission_name":"Dashboard",
+      "class": "waves-effect waves-cyan",
+      "slug": "Profile",
+      "icon": "person_outline"
+      
+    },
+    {
+      "for" :["Manager"],  
+      "url": "manager/medicine-stock-management",
+      "name": "medicine-stock",
       "i18n": "Profile",
       "permission_name":"Dashboard",
       "class": "waves-effect waves-cyan",
@@ -445,6 +465,16 @@
         "class": "waves-effect waves-cyan",
         "slug": "Profile",
         "icon": "assignment_turned_in"
+      },
+
+      {
+        "for" :["Admin"],
+        "url": "admin/medicine-stock-management",
+        "name": "medicine-stock",
+        "i18n": "medicine-stock",
+        "class": "waves-effect waves-cyan",
+        "slug": "medicine-stock",
+        "icon": "healing"
       },
   
       {

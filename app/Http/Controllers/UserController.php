@@ -1714,9 +1714,10 @@ class UserController extends Controller
         }
 
         $managerResult=User::with('company')->whereHas('role',function($role_q){
-            $role_q->where('name','Manager');
-        })->select(['name','email','phone','address1','image','website_url','id','blocked','option_for_block'])->orderBy('id','DESC');
-
+            $role_q->where('typeselect','Manager');
+        })->select(['name','email','phone','address1','image','website_url','id','blocked','option_for_block'])->toSql();
+       echo"<pre>";print_r($managerResult);die;
+        
         if (auth()->user()->role()->first()->name == "Admin") {
           //  echo "manager in";die;
             $userTypeid =auth()->user()->company()->first()->id; // Assuming 'company_id' is the field on the User model

@@ -72,9 +72,11 @@ class User extends Authenticatable
     return $this->belongsToMany(Role::class, 'users_roles', 'user_id', 'role_id');
     }
 
+    
+
     public function company()
     {
-    return $this->belongsToMany(Company::class, 'company_user_mappings', 'user_id', 'company_id');//company data we will get by this
+      return $this->belongsToMany(Company::class, 'company_user_mappings', 'user_id', 'company_id');//company data we will get by this
     }
 
     public function permission()

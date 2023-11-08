@@ -29,9 +29,9 @@
           <!-- users edit media object ends -->
           <!-- users edit account form start -->
           @include('panels.flashMessages')
-          @if(isset($medicineResult->id))
+          @if(isset($medicinestockResult->id))
           <?php //$formUrl = (isset($formUrl) && $formUrl!='') ? $formUrl : 'company-admin-update'; ?>
-            <form class="formValidate" action="{{route($formUrl,$medicineResult->id)}}" id="formValidateCompany" method="post">
+            <form class="formValidate" action="{{route($formUrl,$medicinestockResult->id)}}" id="formValidateCompany" method="post">
             {!! method_field('post') !!}
             @else
             <?php //$formUrl = (isset($formUrl) && $formUrl!='') ? $formUrl : 'company-admin-create'; ?>
@@ -42,7 +42,7 @@
 
 
                 @if(isset($userType) && $userType!=config('custom.superadminrole'))
-                  <input type="hidden" name="company" value="{{Helper::loginUserCompanyId()}}"/>
+                  <input type="hidden" name="company_id" value="{{Helper::loginUserCompanyId()}}"/>
                   @else
                   <div class="col s12 input-field">
                     <select class="error" id="company" name="company_id" data-error=".errorTxt7" required>
@@ -60,7 +60,7 @@
                   
                 <div class="col s12 input-field">
                   <select class="error" id="medicine_result" name="medicine_id" data-error=".errorTxt7" required>
-                    <option value="">Choose {{__('locale.code')}}</option>
+                    <option value="">Choose {{__('locale.medicine')}}</option>
                     @if(isset($medicine_result) && !empty($medicine_result))
                       @foreach ($medicine_result as $medicine_value)
                         <option value="{{$medicine_value->id}}">{{$medicine_value->medicine_name}}</option>
@@ -76,18 +76,23 @@
                 
                 <div class="input-field col m6 s12">
                   <label for="name">{{__('locale.quantity')}}</label>
-                  <input id="name" class="validate" name="quantity" min="0" type="number" data-error=".errorTxt1" value="{{(isset($medicineResult->quantity)) ? $medicineResult->quantity : old('quantity')}}">
+                  <input id="name" class="validate" name="quantity" min="0" type="number" data-error=".errorTxt1" value="{{(isset($medicinestockResult->quantity)) ? $medicinestockResult->quantity : old('quantity')}}">
                   <small class="errorTxt1"></small>
                 </div>
-
-                <div class="input-field col m12 s12">
-                  <input placeholder="{{__('locale.date')}}" id="date-time" type="text" name="dates" class="datepicker date" value="{{(isset($response->date)) ? \Carbon\Carbon::parse($response->date)->format(config('app.date_format')) : old('date')}}" data-error=".errorTxt3" required>
+                <div class="input-field col m6 s12">
+                  <input placeholder="{{__('locale.date')}}" id="date-time" type="text" name="dates" class="datepicker date" value="{{(isset($medicinestockResult->dates)) ? $medicinestockResult->dates : old('dates')}}" data-error=".errorTxt3" required>
                   <small class="errorTxt3"></small>
                   <label for="date-time">{{__('locale.date')}}*</label>
                 </div>
 
+                <!-- <div class="input-field col m6 s12">
+                  <input placeholder="{{__('locale.date')}}" id="date-time" type="text" name="dates" class="datepicker date" value="{{(isset($medicinestockResult->dates)) ? \Carbon\Carbon::parse($medicinestockResult->dates)->format(config('app.date_format')) : old('date')}}" data-error=".errorTxt3" required>
+                  <small class="errorTxt3"></small>
+                  <label for="date-time">{{__('locale.date')}}*</label>
+                </div> -->
+
                 <div class="col s12 input-field">
-                  <select class="error" id="" name="purchase_issue_type" data-error=".errorTxt7" required>
+                  <select class="error" id="purchase_issue" name="purchase_issue_type" data-error=".errorTxt7" required>
                     <option value="">Choose {{__('locale.issue')}}</option>
                     @if(isset($purchase_issue) && !empty($purchase_issue))
                       @foreach ($purchase_issue as $purchase_value)
@@ -129,10 +134,18 @@
 <script src="{{asset('js/scripts/form-validation.js')}}"></script>
 <script>
   window.onload=function(){
-     var company_val = "{{(isset($medicineResult->company) && $medicineResult->company!='NULL') ? $medicineResult->company : old('company')}}";
+     var company_val = "{{(isset($medicinestockResult->company_id) && $medicinestockResult->company_id!='NULL') ? $medicinestockResult->company_id : old('company_id')}}";
+     var medicine_val = "{{(isset($medicinestockResult->medicine_id) && $medicinestockResult->medicine_id!='NULL') ? $medicinestockResult->medicine_id : old('medicine_id')}}";
+     var purchase_issue_val = "{{(isset($medicinestockResult->purchase_issue_type) && $medicinestockResult->purchase_issue_type!='NULL') ? $medicinestockResult->purchase_issue_type : old('purchase_issue_type')}}";
     console.log(company_val);
     $('#company').val(company_val);
     $('#company').formSelect();
+
+    $('#medicine_result').val(medicine_val);
+    $('#medicine_result').formSelect();
+
+    $('#purchase_issue').val(purchase_issue_val);
+    $('#purchase_issue').formSelect();
     
   }
     $(document).ready(function () {

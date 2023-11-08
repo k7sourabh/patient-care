@@ -435,7 +435,8 @@ return [
     "patient_disease_created_successfully"=>"Patient disease created successfully",
     "disease_update_success"=>"Disease updated successfully",
     "medicine-stock"=>"Medicine Stock",
-    "date"=>"Date"
+    "date"=>"Date",
+    "purcahse_issue_type"=>"Purcahse/Issue"
 
 
 

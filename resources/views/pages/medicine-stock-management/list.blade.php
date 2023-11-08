@@ -70,7 +70,7 @@
                 <i class="material-icons right"></i>
             </a> -->
         <div class="responsive-table table-result">
-        @include('pages.medicine.medicine-list-ajax')
+        @include('pages.medicine-stock-management.ajax')
           
         </div>
         <input type="hidden" name="hidden_page" id="hidden_page" value="{{(isset($currentPage) && $currentPage>0) ? $currentPage : 1}}" />
@@ -94,7 +94,9 @@
 <script>
   $(document).ready(function(){
    // var paginationUrl = '{{(isset($paginationUrl) && $paginationUrl!='') ? route($paginationUrl) : route("medicine-list") }}';
-   var paginationUrl = '{{(isset(auth()->user()->role()->first()->name) && auth()->user()->role()->first()->name=="superadmin") ? route("medicine-list") : route("admin-medicine-list") }}';
+   
+   var paginationUrl = '{{(auth()->user()->role->first()->name == "superadmin") ? route("superadmin.medicine-stock-management.list") : ((auth()->user()->role->first()->name == "Admin") ? route("admin.medicine-stock-management.list") : route("manager.medicine-stock-management.list")) }}';
+
    
    const fetch_data = (page, status, seach_term) => {
         if(status === undefined){

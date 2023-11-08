@@ -188,7 +188,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin-inventory-mapping-edit/{id?}', [DeceaseInventoryController::class, 'edit'])->name('admin-inventory-mapping-edit');
         Route::post('/admin-inventory-mapping-update/{id?}', [DeceaseInventoryController::class, 'update'])->name('admin-inventory-mapping-update');
         Route::get('/admin-inventory-mapping-delete/{id?}',[DeceaseInventoryController::class, 'destroy'])->name('admin-inventory-mapping-delete');
-
+        
+        Route::get('medicine-stock-management/create',[MedicineStockManagement::class,'create'])->name('admin.medicine-stock-management.create');
+        Route::post('/medicine-stock-management', [MedicineStockManagement::class, 'store'])->name('admin.medicine-stock-management.store');
+        Route::get('medicine-stock-management',[MedicineStockManagement::class,'index'])->name('admin.medicine-stock-management.list');
+        Route::post('getMedicine', [MedicineStockManagement::class, 'getMedicine'])->name('admin.getMedicine');
+        Route::get('medicine-stock-management-edit/{id}',[MedicineStockManagement::class,'create'])->name('admin.medicine-stock-management.edit');
+        Route::post('medicine-stock-management-update/{id?}', [MedicineStockManagement::class, 'update'])->name('admin.medicine-stock-management.update');
+        Route::get('medicine-stock-management-delete/{id}', [MedicineStockManagement::class, 'destroy'])->name('admin.medicine-stock-management.delete');
         });
 
     Route::prefix('manager')->middleware(['manager'])->group(function () { 
@@ -221,6 +228,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/manager-medicine-update/{id?}', [MedicineController::class, 'update'])->name('manager-medicine-update');
         Route::get('/manager-medicine-delete/{id?}',[MedicineController::class, 'destroy'])->name('manager-medicine-delete');
         
+        Route::get('medicine-stock-management/create',[MedicineStockManagement::class,'create'])->name('manager.medicine-stock-management.create');
+        Route::post('/medicine-stock-management', [MedicineStockManagement::class, 'store'])->name('manager.medicine-stock-management.store');
+        Route::get('medicine-stock-management',[MedicineStockManagement::class,'index'])->name('manager.medicine-stock-management.list');
+        Route::post('getMedicine', [MedicineStockManagement::class, 'getMedicine'])->name('manager.getMedicine');
+        Route::get('medicine-stock-management-edit/{id}',[MedicineStockManagement::class,'create'])->name('manager.medicine-stock-management.edit');
+        Route::post('medicine-stock-management-update/{id?}', [MedicineStockManagement::class, 'update'])->name('manager.medicine-stock-management.update');
+        Route::get('medicine-stock-management-delete/{id}', [MedicineStockManagement::class, 'destroy'])->name('manager.medicine-stock-management.delete');
 
      });
 
@@ -233,8 +247,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/medicine-stock-management', [MedicineStockManagement::class, 'store'])->name('superadmin.medicine-stock-management.store');
         Route::get('medicine-stock-management',[MedicineStockManagement::class,'index'])->name('superadmin.medicine-stock-management.list');
         Route::post('getMedicine', [MedicineStockManagement::class, 'getMedicine'])->name('superadmin.getMedicine');
+        Route::get('medicine-stock-management-edit/{id}',[MedicineStockManagement::class,'create'])->name('superadmin.medicine-stock-management.edit');
+        Route::post('medicine-stock-management-update/{id?}', [MedicineStockManagement::class, 'update'])->name('superadmin.medicine-stock-management.update');
+        Route::get('medicine-stock-management-delete/{id}', [MedicineStockManagement::class, 'destroy'])->name('superadmin.medicine-stock-management.delete');
         
         /** company route */
+
         Route::resource('/company', CompanyController::class);
         // Route::get('/company/{id}/edit', [CompanyController::class,'edit'])->index('superadmin');
         Route::post('/company-import', [CompanyController::class,'companyImport'])->name('company-import');
