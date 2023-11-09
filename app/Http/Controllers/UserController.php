@@ -134,7 +134,8 @@ class UserController extends Controller
 
         $role = Role::where('name','=',$request['typeselect'])->first();
         // $random_password = Str::random(6);
-        $random_password ='123456';
+        $random_password = $request['password'] ;
+        $request['password2'] = $random_password;
         $request['password'] = Hash::make($random_password);
         
 // Insert $date into the database
@@ -1715,8 +1716,8 @@ class UserController extends Controller
 
         $managerResult=User::with('company')->whereHas('role',function($role_q){
             $role_q->where('typeselect','Manager');
-        })->select(['name','email','phone','address1','image','website_url','id','blocked','option_for_block'])->toSql();
-       echo"<pre>";print_r($managerResult);die;
+        })->select(['name','email','phone','address1','image','website_url','id','blocked','option_for_block'])->orderBy('id','desc');
+      // echo"<pre>";print_r($managerResult);die;
         
         if (auth()->user()->role()->first()->name == "Admin") {
           //  echo "manager in";die;
@@ -1961,7 +1962,7 @@ class UserController extends Controller
 
         $adminResult=User::with('company')->whereHas('role',function($role_q){
             $role_q->where('name','Admin');
-        })->select(['name','password2','email','phone','address1','image','website_url','id','blocked'])->orderBy('id','desc');
+        })->select(['name','password2','password','email','phone','address1','image','website_url','id','blocked'])->orderBy('id','desc');
 
         //echo"<pre>";print_r($adminResult);die;
         

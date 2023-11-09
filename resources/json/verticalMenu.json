@@ -340,15 +340,7 @@
       "icon": "person_outline"
       
     },
-    {
-      "for" :["superadmin"],
-      "url": "superadmin/medicine-stock-management",
-      "name": "medicine-stock",
-      "i18n": "medicine-stock",
-      "class": "waves-effect waves-cyan",
-      "slug": "medicine-stock",
-      "icon": "healing"
-    },
+   
 
     {
       "for" :["Manager"],

@@ -76,15 +76,11 @@
                     <label for="company">{{__('locale.Care home code')}}</label>
                     <small class="errorTxt7"></small>
                   </div>
-                <div class="input-field col m6 s12">
-                  <input id="datepicker" class="validate datepicker" name="date" type="text"  data-error=".errorTxt1" value="{{(isset($patient_schedule_result->date)) ? $patient_schedule_result->date : old('date')}}">
-                  <label for="name">{{__('locale.date')}}</label>
-                  <small class="errorTxt1"></small>
-                </div>
+                
 
                 
 
-                <div class="input-field col m6 s12">
+                <div class="input-field col m12 s12">
                 <label for="serach">{{__('locale.Select carer name')}}</label><br>
                 <div class="input-field">
                 <select name="carer_code" id="carer" required>
@@ -132,6 +128,11 @@
                 <div class="input-field col m6 s12">
                   <input id="name" class="validate" name="attended_on_time" type="time" data-error=".errorTxt1" value="{{(isset($patient_schedule_result->attended_on_time)) ? $patient_schedule_result->attended_on_time : old('attended_on_time')}}">
                   <label for="name">{{__('locale.time')}}</label>
+                  <small class="errorTxt1"></small>
+                </div>
+                <div class="input-field col m6 s12">
+                  <input id="datepicker" class="validate datepicker" name="date" type="text"  data-error=".errorTxt1" value="{{(isset($patient_schedule_result->date)) ? $patient_schedule_result->date : old('date')}}">
+                  <label for="name">{{__('locale.date')}}</label>
                   <small class="errorTxt1"></small>
                 </div>
                 <div class="input-field col m12 s12">
