@@ -45,7 +45,7 @@
             @endif
             @csrf()
             <div class="row">
-            <div class="input-field col s12">
+            <div class="input-field col m6 s12">
             <label for="serach">{{__('locale.Select patient')}}</label><br>
             <div class="input-field">
                 <select name="patient_id" id="patient" required>
@@ -62,7 +62,24 @@
                 @enderror
             </div> 
             
-            </div>
+          </div>
+          <div class="input-field col m6 s12">
+          <label for="serach">{{__('locale.Select carer name')}}</label><br>
+          <div class="input-field">
+          <select name="carer_code" id="carer" required>
+          <option value="Select" disabled selected>{{__('locale.Select carer name')}} *</option>
+          @if(isset($carer) && !empty($carer))
+          @foreach($carer as $carer_val)
+          
+          <option value="{{ $carer_val->id }}">{{ $carer_val->name }}</option>
+          @endforeach
+          @endif
+          </select>
+          @error('company_id')
+          <div style="color:red">{{$message}}</div>
+          @enderror
+      </div> 
+      </div>
             <input type="hidden" name="company" value="{{Helper::loginUserCompanyId()}}"/>
                   <div class="col s12 input-field">
                     <select class="error" id="company" name="company" data-error=".errorTxt7" required>
@@ -80,23 +97,6 @@
 
                 
 
-                <div class="input-field col m12 s12">
-                <label for="serach">{{__('locale.Select carer name')}}</label><br>
-                <div class="input-field">
-                <select name="carer_code" id="carer" required>
-                <option value="Select" disabled selected>{{__('locale.Select carer name')}} *</option>
-                @if(isset($carer) && !empty($carer))
-                @foreach($carer as $carer_val)
-                
-                <option value="{{ $carer_val->id }}">{{ $carer_val->name }}</option>
-                @endforeach
-                @endif
-                </select>
-                @error('company_id')
-                <div style="color:red">{{$message}}</div>
-                @enderror
-            </div> 
-            </div>
 
             
                   <input id="name" class="validate" name="carer_assigned_by" type="hidden" data-error=".errorTxt1" value="{{auth()->user()->id}}" readonly>

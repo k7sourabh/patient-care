@@ -167,7 +167,7 @@
                 success: function (result) {
                 console.log('idCountry', result);
 
-                    $('#medicine_result').html('<option value="">Select Company</option>');
+                    $('#medicine_result').html('<option value="">Select medicine</option>');
                     $.each(result.medicine, function (key, value) {
                         $("#medicine_result").append('<option value="' + value
                             .id + '">' + value.medicine_name + '</option>');

@@ -165,8 +165,13 @@ class UserController extends Controller
                 Permission::insert($permissionInsert);
             }
         }
+        $backurl = 'superadmin.'.strtolower($request->typeselect).'-list';
+        // superadmin.paitent-list
+        //echo $backurl;
+       // exit();
+        return redirect()->route($backurl)->with('success',__('locale.created_successfully'));
         
-        return redirect()->route('company-admin-list')->with('success',__('locale.company_admin_create_success'));
+       // return redirect()->route('company-admin-list')->with('success',__('locale.company_admin_create_success'));
     }
 
     public function update(Request $request, $id){
@@ -239,6 +244,7 @@ class UserController extends Controller
         }
        // dd($request->all());
         $user = User::where('id',$id)->update($request->all());
+       // echo url()->previous();die;
        // return redirect()->route('company-admin-list')->with('success',__('locale.success common update'));
         $backurl = 'superadmin.'.strtolower($request->typeselect).'-list';
         // superadmin.paitent-list
@@ -632,7 +638,7 @@ class UserController extends Controller
         $pageConfigs = ['pageHeader' => true];
         $countries = Country::get(["name", "id"]);
         $companies = Company::get(["company_name", "id","company_code"]);
-        $roles=Role::where('name','!=','superadmin')->get(["id","name"]);
+        $roles=Role::where('name','=','Patient')->get(["id","name"]);
         $companyCode = Helper::setNumber();
         $pageTitle = __('locale.patient'); 
         if($id!=''){

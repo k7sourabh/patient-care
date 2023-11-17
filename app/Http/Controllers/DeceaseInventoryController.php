@@ -52,7 +52,7 @@ class DeceaseInventoryController extends Controller
         }
         $deceaseResult = Decease::select(['id','code','name'])->get();
         $inventoryResult = Inventory::select(['id','code','name'])->get();
-        $deceaseinventoryMappingResult = DeceaseInventoryMapping::with(['decease','inventory']);
+        $deceaseinventoryMappingResult = DeceaseInventoryMapping::with(['decease','inventory'])->orderBy('id','desc');
 
         if(auth()->user()->role()->first()->name=="Admin")
         {
