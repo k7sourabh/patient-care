@@ -80,9 +80,9 @@
                   <small class="errorTxt1"></small>
                 </div>
                 <div class="input-field col m6 s12">
-                  <input placeholder="{{__('locale.date')}}" id="date-time" type="text" name="dates" class="datepicker date" value="{{(isset($medicinestockResult->dates)) ? $medicinestockResult->dates : old('dates')}}" data-error=".errorTxt3" required>
-                  <small class="errorTxt3"></small>
                   <label for="date-time">{{__('locale.date')}}*</label>
+                  <input  id="date-time" type="text" name="dates" class="datepicker date" value="{{(isset($medicinestockResult->dates)) ? $medicinestockResult->dates : old('dates')}}" data-error=".errorTxt3" required>
+                  <small class="errorTxt3"></small>
                 </div>
 
                 <!-- <div class="input-field col m6 s12">

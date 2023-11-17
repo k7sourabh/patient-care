@@ -17,6 +17,13 @@
     <img src="{{asset('images/gallery/logo.png')}}" style="width:45%;"/>
     </p>
     @include('panels.flashMessages')
+    {{--
+    @if(Auth::check() && auth()->user()->role()->first()->name=='superadmin')
+    <!-- {{ auth()->user()->role()->first()->name }} -->
+    <form class="login-form" method="POST" action="{{ route('superadmin-login') }}">
+    @else
+    --}}
+    {{--@endif--}}
     <form class="login-form" method="POST" action="{{ route('login') }}">
       @csrf
       <div class="row">

@@ -6,6 +6,7 @@
       <th>{{__('locale.patient')}}</th>
       <th>{{__('locale.care_home_code')}}</th>
       <th>{{__('locale.remark')}}</th>
+      <th>{{__('locale.dose')}}</th>
       <th>{{__('locale.action')}}</th>
     </tr>
   </thead>
@@ -27,6 +28,7 @@
     <td>{{$user_value->carehome->company_name}}</td>
     @endif
     <td>{{$user_value->remark}}</td>
+    <td>{{$user_value->doses}}</td>
     
     
     

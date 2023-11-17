@@ -3,13 +3,13 @@
     <tr>
       <th>{{__('locale.s.no')}}</th>
       <th>{{__('locale.doc_number')}}</th>
-      <th>{{__('locale.date')}}</th>
       <th>{{__('locale.supplier_code')}}</th>
       <th>{{__('locale.inventory_name')}}</th>
       <th>{{__('locale.quantity')}}</th>
       <th>{{__('locale.rate')}}</th>
       <th>{{__('locale.stock_in_by')}}</th>
       <th>{{__('locale.supplier_doc_no')}}</th>
+      <th>{{__('locale.date')}}</th>
       <th>{{__('locale.action')}}</th>
     </tr>
   </thead>
@@ -22,7 +22,6 @@
     <tr>
     <td>{{$serialNumber}}</td>
     <td>{{$stock_value->doc_no}}</td>
-    <td>{{$stock_value->date}}</td>
     <td>{{$stock_value->supplier_code}}</td>
     @if(isset($stock_value->inventoryname->name) && $stock_value->inventoryname->name!='')
     <td>{{$stock_value->inventoryname->name}}</td>
@@ -33,6 +32,7 @@
     <td>{{$stock_value->stock_in_by}}</td>
     @endif
     <td>{{$stock_value->supplier_doc_no}}</td>
+    <td>{{$stock_value->date}}</td>
     
     
     <td>

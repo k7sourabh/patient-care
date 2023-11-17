@@ -45,7 +45,8 @@ class User extends Authenticatable
         'blocked',
         'user_type',
         'invite_code',
-        'typeselect'
+        'typeselect',
+        'option_for_block'
     ];
 
     /**

@@ -65,10 +65,10 @@
                     <small class="errorTxt7"></small>
                   </div>
             @endif -->
-           
+                
                 <div class="input-field col m6 s12">
                   <label for="name">{{__('locale.name')}}*</label>
-                  <input id="name" class="validate" name="name" type="text" data-error=".errorTxt1" value="{{(isset($supplierResult->name)) ? $supplierResult->name : old('name')}}">
+                  <input id="name" class="validate" style="margin-top:7px;" name="name" type="text" data-error=".errorTxt1" value="{{(isset($supplierResult->name)) ? $supplierResult->name : old('name')}}">
                   <small class="errorTxt1"></small>
                 </div>
                 <div class="input-field col m4 s12">
@@ -86,7 +86,7 @@
                   <input id="address2" type="text" name="address3" data-error=".errorTxt4" value="{{(isset($supplierResult->address3) && $supplierResult->address3!='NULL') ? $supplierResult->address3 : old('address3')}}">
                   <small class="errorTxt4"></small>
                 </div>
-                <div class="col m12 s12">
+                <div class="col m4 s12">
                   <label for="country">{{__('locale.country')}} *</label>
                   <div class="input-field">
                     <select class="error" id="country" name="country" data-error=".errorTxt6">
@@ -113,7 +113,7 @@
                   <small class="errorTxt4"></small>
                 </div>
                 --}}
-                <div class="col m6 s12">
+                <div class="col m4 s12">
                   <label for="state">{{__('locale.state')}} *</label>
                   <div class="input-field">
                     <select class="error" id="state" name="state" data-error=".errorTxt7">
@@ -127,7 +127,7 @@
                     <small class="errorTxt7"></small>
                   </div>
                 </div>
-                <div class="col m6 s12">
+                <div class="col m4 s12">
                   <label for="city">{{__('locale.city')}} *</label>
                   <div class="input-field">
                     <select class="error" id="city" name="city" data-error=".errorTxt8">

@@ -159,7 +159,7 @@
 
                 <div class="input-field col m12 s12">
                 
-                  <select name="option_for_block">
+                  <select name="option_for_block" id="option_for_block">
                     <option value="">Choose {{__('locale.option')}}</option>
                     <option value="1">{{__('locale.yes')}}</option>
                     <option value="0">{{__('locale.no')}}</option>
@@ -197,13 +197,16 @@
     var country_value = "{{(isset($company_result->country) && $company_result->country!='NULL') ? $company_result->country : old('country')}}";
     var state_value = "{{(isset($company_result->state) && $company_result->state!='NULL') ? $company_result->state : old('state')}}";
     var city_value = "{{(isset($company_result->city) && $company_result->city!='NULL') ? $company_result->city : old('state')}}";
-    console.log(state_value);
+    var block_value= "{{(isset($company_result->option_for_block) && $company_result->option_for_block!='NULL') ? $company_result->option_for_block : old('option_for_block')}}";
+    console.log(block_value,state_value);
     $('#country').val(country_value);
     $('#country').formSelect();
     $('#state').val(state_value);
     $('#state').formSelect();
     $('#city').val(city_value);
     $('#city').formSelect();
+    $('#option_for_block').val(block_value);
+    $('#option_for_block').formSelect();
   }
 
   

@@ -322,7 +322,7 @@
     var company_value = "{{(isset($user_result->company[0]->id) && $user_result->company[0]->id!='NULL') ? $user_result->company[0]->id : old('company')}}";
     var option_for_block = "{{(isset($user_result->option_for_block) && $user_result->option_for_block!='NULL') ? $user_result->option_for_block : old('option_for_block')}}";
 
-    console.log(state_value);
+    console.log(option_for_block,state_value);
     $('#country').val(country_value);
     $('#country').formSelect();
     $('#state').val(state_value);

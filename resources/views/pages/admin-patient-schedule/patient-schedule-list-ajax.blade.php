@@ -32,8 +32,9 @@
     @endif
     <td>{{$user_value->attended}}</td>
     <td>{{$user_value->remarks}}</td>
+    @if(isset($user_value->attended_remarks) && $user_value->attended_remarks!='')
     <td>{{$user_value->attended_remarks}}</td>
-    
+    @endif
     
     <td>
       @if($editUrl=='admin-patient-schedule-edit')

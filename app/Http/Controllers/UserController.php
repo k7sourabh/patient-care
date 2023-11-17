@@ -49,7 +49,7 @@ class UserController extends Controller
         //         $q->where('name', 'company-admin');
         //     }
         // )->select(['id','name','email','phone','address1','image','website_url','blocked'])->orderBy('id','DESC');
-        $usersResult = User::select(['id','name','email','phone','address1','image','website_url','blocked','typeselect'])->orderBy('id','DESC');
+        $usersResult = User::select(['id','name','email','phone','address1','image','website_url','blocked','typeselect','option_for_block'])->orderBy('id','DESC');
         $editUrl = 'superadmin.company-admin-edit';
         if($request->ajax()){
             $usersResult = $usersResult->when($request->seach_term, function($q)use($request){
@@ -108,7 +108,7 @@ class UserController extends Controller
             }
             $formUrl = 'company-admin-update';
         }
-        // dd($user_result);
+         //dd($user_result);
         return view('pages.users.users-create', ['pageConfigs' => $pageConfigs], ['breadcrumbs' => $breadcrumbs,'countries'=>$countries,'pageTitle'=>$pageTitle,'companies'=>$companies,'user_result'=>$user_result,'states'=>$states,'cities'=>$cities,'userType'=>$userType,'formUrl'=>$formUrl,'companyCode'=>$companyCode,'roles'=>$roles]);
     }
     
@@ -116,7 +116,7 @@ class UserController extends Controller
     public function store(Request $request){
         
         
-       // echo '<pre>';print_r($request->all()); exit();
+    //echo '<pre>';print_r($request->all()); exit();
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:250',
             'password'=>'required|max:250',
@@ -237,13 +237,14 @@ class UserController extends Controller
         }else{
             unset($request['password']);
         }
-        //dd($request->all());
+       // dd($request->all());
         $user = User::where('id',$id)->update($request->all());
-
+       // return redirect()->route('company-admin-list')->with('success',__('locale.success common update'));
         $backurl = 'superadmin.'.strtolower($request->typeselect).'-list';
         // superadmin.paitent-list
-        // exit();
-        return redirect()->route($backurl)->with('success',__('locale.company_admin_update_success'));
+        //echo $backurl;
+       // exit();
+        return redirect()->route($backurl)->with('success',__('locale.success common update'));
     }
 
     
@@ -382,6 +383,8 @@ class UserController extends Controller
     }
 
     public function usersUpdate(Request $request, $id){
+       // echo"usersUpdate";die;
+       echo"<pre>";print_r($request->all());die;
         $userType = auth()->user()->role()->first()->name;
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:250',
@@ -411,8 +414,9 @@ class UserController extends Controller
         if($userType!=config('custom.superadminrole')){
             $listUrl = 'company-user-list';
         }
-
         
+
+        //echo $listUrl;die;
     
         if ($request->has('permission_allow')) {
             Permission::where('user_id',$id)->delete();
@@ -444,8 +448,8 @@ class UserController extends Controller
         }
 
         $user = User::where('id',$id)->update($request->all());
-
-        return redirect()->route($listUrl)->with('success',__('locale.company_user_update_success'));
+       // return redirect()->route('')->with('success',__('locale.company_user_update_success'));
+        return redirect()->route('superadmin.admin-list')->with('success',__('locale.company_user_update_success'));
     }
 
     public function userStore(Request $request){
@@ -1958,11 +1962,11 @@ class UserController extends Controller
         if(auth()->user()->role()->first()->name=="superadmin"){
         $paginationUrl = 'superadmin.admin-list';
         }
-        $editUrl = 'superadmin.company-user-edit';
+        $editUrl = 'superadmin.company-admin-edit';
 
         $adminResult=User::with('company')->whereHas('role',function($role_q){
             $role_q->where('name','Admin');
-        })->select(['name','password2','password','email','phone','address1','image','website_url','id','blocked'])->orderBy('id','desc');
+        })->select(['name','password2','password','email','phone','address1','image','website_url','id','blocked','option_for_block'])->orderBy('id','desc');
 
         //echo"<pre>";print_r($adminResult);die;
         

@@ -29,7 +29,7 @@
       {{ isset($user_value->company[0]->company_name) ? $user_value->company[0]->company_name : '' }}
       
     </td>
-    <td>{{($user_value->blocked==1) ? 'Blocked' : 'Un-blocked'}}</td>
+    <td>{{($user_value->option_for_block==1) ? 'Blocked' : 'Un-blocked'}}</td>
     <td>{{$user_value->typeselect}}</td>
     <td>
       @if($editUrl=='company-user-edit')

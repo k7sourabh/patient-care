@@ -15,16 +15,21 @@ class DashboardController extends Controller
 {
     public function dashboardModern()
     {
-        if(Auth::user()->role()->first()->id==1){
-            return redirect('/superadmin');
-        };
-        // if(Auth::user()->role()->first()->id==2){
-        //     return redirect('/admin');
-        // };
+       // echo"hi hello";die;
+       //echo Auth::user()->role()->first()->id;die;
+        /*if(Auth::user()->role()->first()->id=='1'){
+           return redirect()->route('superadmin.dashboard');
+         // return view('/pages/dashboard-modern');
+        }
+        if(Auth::user()->role()->first()->id==2){
+          //  return redirect('/admin');
+        };*/
         return view('/pages/dashboard-modern');
     }
+
     public function dashboardSuperadminModern()
     {
+       // echo"dash";die;
         
         return view('/pages/dashboard-modern');
     }

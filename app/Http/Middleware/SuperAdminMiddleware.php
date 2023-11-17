@@ -21,15 +21,19 @@ class SuperAdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check() && auth()->user()->role()->first()->name=='superadmin') {
-            // $user_detail=User::with('roles_admin')->find(Auth()->user()->id);
-            // if(in_array($user_detail->roles_admin->role_id,[1,2])){
-            //     return $next($request);
-            // }else{
-            //     return redirect('/');
-            // }
             return $next($request);
+            // $user_detail=User::with('role')->find(Auth()->user()->id);
+            // echo"<pre>";print_r($user_detail);die;
+            // if(in_array($user_detail->role[0]->id,[1])){
+                // return $next($request);
+                // }else{
+                    //  return redirect('/');
+                    // }
+                    // echo"la";die;
+                    // return redirect()->route('superadmin-login');
         }
-        return redirect('/login');
+      //  echo"jk";die;
+       return redirect('/login');
         
     }
 }

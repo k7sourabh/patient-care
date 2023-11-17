@@ -436,7 +436,8 @@ return [
     "disease_update_success"=>"Disease updated successfully",
     "medicine-stock"=>"Medicine Stock",
     "date"=>"Date",
-    "purcahse_issue_type"=>"Purcahse/Issue"
+    "purcahse_issue_type"=>"Purcahse/Issue",
+    "dose"=>"Dose",
 
 
 

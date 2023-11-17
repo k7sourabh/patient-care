@@ -58,24 +58,24 @@
                 </div>
 
                 <div class="input-field col m6 s12">
-                  <label for="disease">{{__('locale.Select inventory name')}}*</label>
+                  <label for="inventory">{{__('locale.Select inventory name')}}*</label>
                   <div class="input-field">
-                  <!-- <input id="name" class="validate" name="inventory_code" type="text" data-error=".errorTxt1" value="{{(isset($result->name)) ? $result->name : old('name')}}"> -->
-                  <select name="inventory_code" id="inventory" required>
-                  <option value="Select" disabled selected>{{__('locale.Select inventory name')}}</option>
-                  @if(isset($inventory) && !empty($inventory))
-                  @foreach($inventory as $inventory_val)
-
-                  <option value="{{$inventory_val->id}}">{{$inventory_val->name}}</option>
-                  @endforeach
-                  @endif
-                  </select>
-                  @error('company_id')
-                  <div style="color:red">{{$message}}</div>
-                  @enderror
-                  
-                </div>
-                </div>
+                    <!-- <input id="name" class="validate" name="inventory_code" type="text" data-error=".errorTxt1" value="{{(isset($result->name)) ? $result->name : old('name')}}"> -->
+                    <select name="inventory_code" id="inventory" required>
+                      <option value="Select" disabled selected>{{__('locale.Select inventory name')}}</option>
+                      @if(isset($inventory) && !empty($inventory))
+                      @foreach($inventory as $inventory_val)
+                      
+                      <option value="{{$inventory_val->id}}">{{$inventory_val->name}}</option>
+                      @endforeach
+                      @endif
+                    </select>
+                    @error('company_id')
+                    <div style="color:red">{{$message}}</div>
+                    @enderror
+                
+              </div>
+            </div>
 
                 <div class="input-field col m6 s12">
                   <label for="name">{{__('locale.quantity')}}</label>

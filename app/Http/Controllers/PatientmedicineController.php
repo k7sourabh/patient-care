@@ -43,9 +43,11 @@ class PatientmedicineController extends Controller
        // echo"<pre>";print_r($medicineResult);die;
         if(auth()->user()->role()->first()->name=="Admin")
         {
+           // echo"admin login";
             $medicineResult = Patient_medicine::with(['patientname','medicine','carehome'])->whereHas('carehome', function ($company_q) {
-                $company_q->where('id', '=',auth()->user()->company()->first()->id);})->select(['id','medicine_code','patient_code','c_home_code','remark','updated_by_user','doses'])->orderBy('id','DESC');
+                $company_q->where('id', '=',auth()->user()->company()->first()->id);})->select(['id','medicine_code','patient_code','c_home_code','remark','updated_by_user','doses'])->orderBy('id','desc');
         }
+        //echo"<pre>";print_r($medicineResult);die;
         //$deceaseResult = Decease::select(['id','code','name'])->get();
         $editUrl = 'admin-patient-medicine-edit';
         if($request->ajax()){

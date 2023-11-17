@@ -3,12 +3,12 @@
     <tr>
       <th>{{__('locale.s.no')}}</th>
       <th>{{__('locale.doc_number')}}</th>
-      <th>{{__('locale.date')}}</th>
       <th>{{__('locale.patient_name')}}</th>
       <th>{{__('locale.carer_name')}}</th>
       <th>{{__('locale.inventory_name')}}</th>
       <th>{{__('locale.quantity')}}</th>
       <th>{{__('locale.stock_out_by')}}</th>
+      <th>{{__('locale.date')}}</th>
       <th>{{__('locale.action')}}</th>
     </tr>
   </thead>
@@ -21,7 +21,6 @@
     <tr>
     <td>{{$serialNumber}}</td>
     <td>{{$stock_value->doc_no}}</td>
-    <td>{{$stock_value->date}}</td>
     <td>{{$stock_value->patientname->name}}</td>
     @if(isset($stock_value->carername->name) && $stock_value->carername->name!='')
     <td>{{$stock_value->carername->name}}</td>
@@ -33,6 +32,7 @@
     @if(isset($stock_value->stock_out_by) && $stock_value->stock_out_by!='')
     <td>{{$stock_value->stock_out_by}}</td>
     @endif
+    <td>{{$stock_value->date}}</td>
     <td>
       @if($editUrl=='stockout-edit')
       <a href="{{route($editUrl,$stock_value->id)}}"><i class="material-icons">edit</i></a>

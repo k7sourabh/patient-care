@@ -63,15 +63,23 @@ use App\Http\Controllers\MedicineStockManagement;
 
 Auth::routes(['verify' => true]);
 
-// Route::prefix('superadmin')->group(function () { 
-    Route::get('/superadmin-login', [LoginController::class, 'showLoginFormSuperadmin']);
-    Route::post('/superadmin-login', [LoginController::class, 'postLoginFormSuperadmin'])->name('superadmin-login');
-// });
+//Route::prefix('superadmin')->group(function () { 
+ /****Separate route for superadmin login************* */
+   Route::get('/superadmin-login', [LoginController::class, 'showLoginFormSuperadmin']);
+   Route::post('/superadmin-login', [LoginController::class, 'postLoginFormSuperadmin'])->name('superadmin-login');
+  /****Separate route for superadmin login************* */  
+//});
 
 
+
+
+
+// Route::get('/superadminlogin', [LoginController::class,'showLoginFormSuperadmin'])->name('superadmin.login');
+// Route::post('/superadminlogin', [LoginController::class,'loginSuperadmin'])->name('submit');
+//Route::post('/superadminlogout', [LoginController::class,'superadminlogout'])->name('superadmin.logout');
 
 Route::group(['middleware' => ['auth']], function () { 
-
+    
 
     Route::get('/logout', [LoginController::class, 'logout']);
     /** country state city **/
@@ -237,12 +245,18 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('medicine-stock-management-delete/{id}', [MedicineStockManagement::class, 'destroy'])->name('manager.medicine-stock-management.delete');
 
      });
-
+      
+     /****************************************************************************/
+     
+     /****************************************************************************/
+    
+  
     Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { 
         Route::get('/', [DashboardController::class, 'dashboardSuperadminModern'])->name('superadmin.dashboard');
         Route::get('/login', [LoginController::class, 'showLoginForm']);
+        
 
-        /** medicine-stock-management **/
+    /** medicine-stock-management **/
         Route::get('medicine-stock-management/create',[MedicineStockManagement::class,'create'])->name('superadmin.medicine-stock-management.create');
         Route::post('/medicine-stock-management', [MedicineStockManagement::class, 'store'])->name('superadmin.medicine-stock-management.store');
         Route::get('medicine-stock-management',[MedicineStockManagement::class,'index'])->name('superadmin.medicine-stock-management.list');
@@ -457,7 +471,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::middleware(['companyadmin'])->group(function () {
-        Route::get('/', [DashboardController::class, 'dashboardModern'])->name('dashboard');
+        Route::get('/',[DashboardController::class, 'dashboardModern'])->name('dashboard');
         /** company user **/
         Route::get('/company-user-create', [UserController::class, 'usersCreate'])->name('company-user-create');
         Route::get('/company-user-edit/{id}', [UserController::class, 'usersCreate'])->name('company-user-edit');
@@ -551,7 +565,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Dashboard Route
     // Route::get('/', [DashboardController::class, 'dashboardModern'])->middleware('verified');
-    Route::get('/', [DashboardController::class, 'dashboardModern']);
+    Route::get('/', [DashboardController::class, 'dashboardModern'])->name('dashboardModern');
 
     Route::get('/modern', [DashboardController::class, 'dashboardModern']);
     Route::get('/ecommerce', [DashboardController::class, 'dashboardEcommerce']);
